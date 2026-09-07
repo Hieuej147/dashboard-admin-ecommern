@@ -37,3 +37,8 @@ skill/
 skills-lock.json
 skills-lock*
 skill-lock*
+
+# Internal documentation
+/docs/
+docs/
+
