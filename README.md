@@ -10,9 +10,9 @@ This project is part of an integrated 3-part microservices platform:
 
 | Repository | Tech Stack | Role & Link |
 | :--- | :--- | :--- |
-| **Backend Monorepo** | NestJS 11, gRPC, PostgreSQL, Prisma, Inngest | RESTful API Gateway, gRPC microservices, Stripe & Clerk webhooks. <br>🔗 Repo: [`<backend-repo-url>`](<backend-repo-url>) |
-| **Customer Storefront** | Next.js 16, React 19, Tailwind v4, Three.js | Customer shop, 3D interactive hero canvas, cart, Stripe checkout. <br>🔗 Repo: [`<storefront-repo-url>`](<storefront-repo-url>) |
-| **Admin Dashboard** (This repo) | React 19, Vite, TypeScript, Cloudflare Zero Trust | Backoffice management, real-time KPI metrics, orders & catalog CRUD. <br>🔗 Repo: [`<admin-dashboard-repo-url>`](<admin-dashboard-repo-url>) |
+| **Backend Monorepo** | NestJS 11, gRPC, PostgreSQL, Prisma, Inngest | RESTful API Gateway, gRPC microservices, Stripe & Clerk webhooks. <br>🔗 Repo: [`https://github.com/Hieuej147/ecommerce-backend.git`](https://github.com/Hieuej147/ecommerce-backend.git) |
+| **Customer Storefront** | Next.js 16, React 19, Tailwind v4, Three.js | Customer shop, 3D interactive hero canvas, cart, Stripe checkout. <br>🔗 Repo: [`https://github.com/Hieuej147/-E-commerce.git`](https://github.com/Hieuej147/-E-commerce.git) |
+| **Admin Dashboard** (This repo) | React 19, Vite, TypeScript, Cloudflare Zero Trust | Backoffice management, real-time KPI metrics, orders & catalog CRUD. <br>🔗 Repo: [`https://github.com/Hieuej147/dashboard-admin-ecommern.git`](https://github.com/Hieuej147/dashboard-admin-ecommern.git) |
 
 ---
 
@@ -71,9 +71,9 @@ To set up the complete ecosystem on your computer:
 mkdir my-ecommerce && cd my-ecommerce
 
 # 2. Clone all 3 repositories (Replace with your actual GitHub URLs)
-git clone <backend-repo-url> backend
-git clone <storefront-repo-url> storefront
-git clone <admin-dashboard-repo-url> admin-dashboard
+git clone https://github.com/Hieuej147/ecommerce-backend.git backend
+git clone https://github.com/Hieuej147/-E-commerce.git storefront
+git clone https://github.com/Hieuej147/dashboard-admin-ecommern.git admin-dashboard
 
 # 3. Start Backend (Terminal 1)
 cd backend
