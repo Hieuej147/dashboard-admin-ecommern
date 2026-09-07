@@ -1,0 +1,141 @@
+# 🛡️ E-Commerce Admin Dashboard
+
+Centralized administrative backoffice portal for managing products, orders, customers, and revenue analytics. Built with **React 19**, **Vite**, **TypeScript**, **Tailwind CSS**, **TanStack Query**, and **Clerk Authentication**.
+
+---
+
+## 🔗 Ecosystem Repositories
+
+This project is part of an integrated 3-part microservices platform:
+
+| Repository | Tech Stack | Role & Link |
+| :--- | :--- | :--- |
+| **Backend Monorepo** | NestJS 11, gRPC, PostgreSQL, Prisma, Inngest | RESTful API Gateway, gRPC microservices, Stripe & Clerk webhooks. <br>🔗 Repo: [`<backend-repo-url>`](<backend-repo-url>) |
+| **Customer Storefront** | Next.js 16, React 19, Tailwind v4, Three.js | Customer shop, 3D interactive hero canvas, cart, Stripe checkout. <br>🔗 Repo: [`<storefront-repo-url>`](<storefront-repo-url>) |
+| **Admin Dashboard** (This repo) | React 19, Vite, TypeScript, Cloudflare Zero Trust | Backoffice management, real-time KPI metrics, orders & catalog CRUD. <br>🔗 Repo: [`<admin-dashboard-repo-url>`](<admin-dashboard-repo-url>) |
+
+---
+
+## 📌 Architecture Reference & Enhancements
+
+> **Architecture Reference:** Inspired by and adapted from the administrative management pattern in [shopping-cart-project](/mnt/disk2/shopping-cart-project) (originally based on [sivaprasadreddy/spring-boot-microservices-series](https://github.com/sivaprasadreddy/spring-boot-microservices-series.git)).
+
+### Key Adaptations & Improvements:
+1. **Isolated Administrative Repository**: The reference project lacked an independent administrative backoffice. This project isolates the admin interface into a dedicated repository, preventing regular customers from ever discovering or probing administrative assets.
+2. **Perimeter Edge Security (Cloudflare Zero Trust - Option 1)**: Shields `admin.yourdomain.com` behind an edge access wall. Visitors must authenticate with an email One-Time PIN (OTP) before downloading any JavaScript code ($0 cost, 100% blocker against unauthorized bots/scanners).
+3. **Real-Time KPI Dashboard**: Displays live revenue metrics, order volumes, and payment status charts, handling 64-bit integer (`Protobuf Long`) data serialization from backend gRPC microservices.
+4. **Interconnection with Other Repos**:
+   - Fetches administrative endpoints from the **Backend API Gateway** (`VITE_API_BASE_URL=http://localhost:3000/v1` or production endpoint).
+   - Provides seamless navigation backlinks to the **Customer Storefront** (`VITE_STOREFRONT_URL=http://localhost:3001`).
+
+---
+
+## 🌟 Core Features
+
+- 📊 **Executive Overview**: Real-time KPI metrics for gross revenue, completed orders, payment success rates, and newly registered users.
+- 📦 **Product Management**: View product catalog, create new products, modify prices and stock inventory, and remove discontinued items.
+- 📑 **Order Management**: Detailed order inspection, itemized receipts, customer shipping addresses, order status updates, and order cancellations with automated refunds.
+- 💳 **Transaction Tracking**: Comprehensive log of Stripe payment transactions, payment intent identifiers, and status codes.
+- 👥 **Customer Management**: User directory displaying registered customer details, creation timestamps, and assigned system roles.
+- ⚡ **Ultra-Fast SPA**: Instantaneous sub-second page transitions powered by Vite and React 19.
+
+---
+
+## 🔒 Securing the Admin Portal with Cloudflare Zero Trust (Option 1)
+
+When deployed to production with your custom domain (e.g. `yourdomain.com`), secure `admin.yourdomain.com` so it is never exposed publicly to the internet:
+
+1. **Point Domain to Cloudflare**: Register your domain (Namecheap, GoDaddy, etc.) and point its NameServers to Cloudflare DNS (free tier).
+2. **Enable Cloudflare Zero Trust**:
+   - Navigate to Cloudflare Dashboard -> **Zero Trust** -> **Access** -> **Applications** -> Click **Add an application**.
+   - Choose **Self-hosted**.
+   - Application Name: `Admin Backoffice`.
+   - Domain: `admin.yourdomain.com`.
+3. **Configure Access Policy**:
+   - Action: `Allow`.
+   - Selector: Select **Emails** -> Enter your authorized personal administrator email (e.g., `admin@yourdomain.com`).
+4. **Save Configuration**:
+   - When anyone navigates to `https://admin.yourdomain.com`, Cloudflare intercepts the request at its nearest global edge server.
+   - Cloudflare demands an email and sends a 6-digit one-time passcode (OTP) directly to your inbox.
+   - Only upon entering the valid PIN does the browser download the Admin Dashboard assets.
+   - All unauthorized probes, port scanners, and malicious scrapers are blocked at the edge (**100% Free** for up to 50 users).
+
+---
+
+## 📥 How to Clone & Run All 3 Projects Together
+
+To set up the complete ecosystem on your computer:
+
+```bash
+# 1. Create a parent directory
+mkdir my-ecommerce && cd my-ecommerce
+
+# 2. Clone all 3 repositories (Replace with your actual GitHub URLs)
+git clone <backend-repo-url> backend
+git clone <storefront-repo-url> storefront
+git clone <admin-dashboard-repo-url> admin-dashboard
+
+# 3. Start Backend (Terminal 1)
+cd backend
+cp .env.example .env
+pnpm install
+docker compose up -d
+pnpm run db:setup
+pnpm run dev:all     # Running on port 3000 (Swagger: /docs)
+
+# 4. Start Customer Storefront (Terminal 2)
+cd ../storefront
+cp .env.example .env.local
+pnpm install
+pnpm run dev         # Running on port 3001
+
+# 5. Start Admin Dashboard (Terminal 3)
+cd ../admin-dashboard
+cp .env.example .env
+bun install          # or: pnpm install
+bun run dev          # Running on port 5173
+```
+
+---
+
+## 💻 Local Quickstart (Admin Dashboard Only)
+
+If the backend is already running on `http://localhost:3000`:
+
+```bash
+# 1. Install dependencies
+bun install
+# (or: pnpm install)
+
+# 2. Configure environment variables
+cp .env.example .env
+```
+
+Ensure `.env` contains:
+```env
+VITE_CLERK_PUBLISHABLE_KEY=pk_test_your_clerk_publishable_key
+VITE_API_BASE_URL=http://localhost:3000/v1
+VITE_STOREFRONT_URL=http://localhost:3001
+```
+
+```bash
+# 3. Start development server
+bun run dev
+# (or: pnpm run dev)
+```
+
+Open [http://localhost:5173](http://localhost:5173) in your browser.
+
+---
+
+## 🛑 How to Shut Down
+
+- **Stop Admin Dashboard**: Press **`Ctrl + C`** in the terminal running `bun run dev`.
+- **Emergency Port Cleanup**: If port 5173 is hanging, run: `npx kill-port 5173`.
+
+---
+
+## 🐳 Docker Deployment & CI/CD Summary
+
+- **Production Docker Image**: Packages the compiled Vite Single Page Application (SPA) with a lightweight Nginx Alpine image with security headers (`X-Frame-Options: SAMEORIGIN`, `X-Content-Type-Options: nosniff`).
+- **Automated CI/CD**: Workflow at `.github/workflows/ci-cd.yml` automatically validates TypeScript compilation on Pull Requests and builds and pushes production container images to **AWS ECR** (or syncs to **AWS S3 + CloudFront**) on merges to `main`.
