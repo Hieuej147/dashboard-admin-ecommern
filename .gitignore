@@ -28,3 +28,12 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Agent skills and skill lock files
+.agents/
+agents/
+skills/
+skill/
+skills-lock.json
+skills-lock*
+skill-lock*
