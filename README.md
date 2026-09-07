@@ -6,19 +6,20 @@ Centralized administrative backoffice portal for managing products, orders, cust
 
 ## 🔗 Ecosystem Repositories
 
-This project is part of an integrated 3-part microservices platform:
+This project is part of an integrated 4-part microservices platform:
 
 | Repository | Tech Stack | Role & Link |
 | :--- | :--- | :--- |
 | **Backend Monorepo** | NestJS 11, gRPC, PostgreSQL, Prisma, Inngest | RESTful API Gateway, gRPC microservices, Stripe & Clerk webhooks. <br>🔗 Repo: [`https://github.com/Hieuej147/ecommerce-backend.git`](https://github.com/Hieuej147/ecommerce-backend.git) |
 | **Customer Storefront** | Next.js 16, React 19, Tailwind v4, Three.js | Customer shop, 3D interactive hero canvas, cart, Stripe checkout. <br>🔗 Repo: [`https://github.com/Hieuej147/-E-commerce.git`](https://github.com/Hieuej147/-E-commerce.git) |
 | **Admin Dashboard** (This repo) | React 19, Vite, TypeScript, Cloudflare Zero Trust | Backoffice management, real-time KPI metrics, orders & catalog CRUD. <br>🔗 Repo: [`https://github.com/Hieuej147/dashboard-admin-ecommern.git`](https://github.com/Hieuej147/dashboard-admin-ecommern.git) |
+| **DevOps & GitOps (IaC & Manifests)** | Terraform, Helm, ArgoCD, AWS EKS, AWS ECR | Infrastructure as Code, OIDC authentication, 9 ECR registries, ArgoCD GitOps manifests. <br>🔗 Repo: [`https://github.com/Hieuej147/ecommerce-devops.git`](https://github.com/Hieuej147/ecommerce-devops.git) |
 
 ---
 
 ## 📌 Architecture Reference & Enhancements
 
-> **Architecture Reference:** Inspired by and adapted from the administrative management pattern in [shopping-cart-project](/mnt/disk2/shopping-cart-project) (originally based on [sivaprasadreddy/spring-boot-microservices-series](https://github.com/sivaprasadreddy/spring-boot-microservices-series.git)).
+> **Architecture Reference:** Inspired by and adapted from the administrative management pattern in [Jayce-Anh/shopping-cart-project](https://github.com/Jayce-Anh/shopping-cart-project) (originally based on [sivaprasadreddy/spring-boot-microservices-series](https://github.com/sivaprasadreddy/spring-boot-microservices-series.git)).
 
 ### Key Adaptations & Improvements:
 1. **Isolated Administrative Repository**: The reference project lacked an independent administrative backoffice. This project isolates the admin interface into a dedicated repository, preventing regular customers from ever discovering or probing administrative assets.
@@ -70,10 +71,11 @@ To set up the complete ecosystem on your computer:
 # 1. Create a parent directory
 mkdir my-ecommerce && cd my-ecommerce
 
-# 2. Clone all 3 repositories (Replace with your actual GitHub URLs)
+# 2. Clone all 4 repositories
 git clone https://github.com/Hieuej147/ecommerce-backend.git backend
 git clone https://github.com/Hieuej147/-E-commerce.git storefront
 git clone https://github.com/Hieuej147/dashboard-admin-ecommern.git admin-dashboard
+git clone https://github.com/Hieuej147/ecommerce-devops.git devops
 
 # 3. Start Backend (Terminal 1)
 cd backend
@@ -139,3 +141,35 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 
 - **Production Docker Image**: Packages the compiled Vite Single Page Application (SPA) with a lightweight Nginx Alpine image with security headers (`X-Frame-Options: SAMEORIGIN`, `X-Content-Type-Options: nosniff`).
 - **Automated CI/CD**: Workflow at `.github/workflows/ci-cd.yml` automatically validates TypeScript compilation on Pull Requests and builds and pushes production container images to **AWS ECR** (or syncs to **AWS S3 + CloudFront**) on merges to `main`.
+
+---
+
+## 🚀 How to Deploy to AWS (via Terraform & GitOps)
+
+For deploying the complete ecosystem to AWS, refer to our dedicated IaC & GitOps repository: [`ecommerce-devops`](https://github.com/Hieuej147/ecommerce-devops.git).
+
+### Quick Deployment Steps:
+1. **Clone the DevOps repository**:
+   ```bash
+   git clone https://github.com/Hieuej147/ecommerce-devops.git devops
+   cd devops/terraform
+   cp terraform.tfvars.example terraform.tfvars
+   ```
+2. **Fill in `terraform.tfvars`** with your AWS Account ID, domain name (`yourdomain.com`), and IAM username.
+3. **Provision Cloud Infrastructure**:
+   ```bash
+   terraform init && terraform apply
+   ```
+   *(Creates VPC, EKS Cluster, RDS PostgreSQL 16, ElastiCache Valkey, 9 ECR repos, IAM OIDC Role, ALB, and ArgoCD)*.
+4. **Set GitHub Repository Secrets**:
+   Copy `github_actions_role_arn` from Terraform output and set in this repo's **Settings** > **Secrets and variables** > **Actions**:
+   - `AWS_ROLE_ARN`: from Terraform output
+   - `AWS_REGION`: `ap-southeast-1`
+   - `VITE_CLERK_PUBLISHABLE_KEY`: Your Clerk publishable key
+5. **Secure with Cloudflare Zero Trust (Option 1)**:
+   - Point your domain to Cloudflare DNS.
+   - Add CNAME for `admin.yourdomain.com` pointing to the ALB DNS name.
+   - Set up Cloudflare Access Application for `admin.yourdomain.com` requiring an email OTP PIN (blocks unauthorized scrapers & bots at the edge for $0).
+6. **Deploy**:
+   - Push to `main` branch. GitHub Actions builds the Nginx SPA container and pushes to ECR. ArgoCD updates the Pods on EKS with zero downtime!
+
