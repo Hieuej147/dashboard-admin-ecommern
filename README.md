@@ -153,10 +153,10 @@ For the complete AWS infrastructure setup, consult our primary infrastructure re
 ### Quick Deployment Flow:
 1. **GitHub Secrets Configuration**:
    In this repository's **Settings** > **Secrets and variables** > **Actions** > **New repository secret**:
-   - `AWS_ROLE_ARN`: `arn:aws:iam::004285426030:role/prod-ecommerce-github-actions-role`
+   - `AWS_ROLE_ARN`: `arn:aws:iam::<YOUR_AWS_ACCOUNT_ID>:role/prod-ecommerce-github-actions-role`
    - `VITE_CLERK_PUBLISHABLE_KEY`: `pk_test_...`
-   - `VITE_API_BASE_URL`: `https://api.hieudev.click/v1`
-   - `VITE_STOREFRONT_URL`: `https://store.hieudev.click`
+   - `VITE_API_BASE_URL`: `https://api.yourdomain.com/v1`
+   - `VITE_STOREFRONT_URL`: `https://store.yourdomain.com`
 2. **Deploy to Production**:
    Push your changes to `main`:
    ```bash
