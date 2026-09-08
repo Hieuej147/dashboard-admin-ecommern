@@ -57,7 +57,7 @@ jobs:
       - name: Build and Push Docker Image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY || 'shopping-cart-admin' }}
+          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY || 'prod-ecommerce-admin-dashboard' }}
           IMAGE_TAG: ${{ github.sha }}
         run: |
           docker build \
