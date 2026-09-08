@@ -160,7 +160,7 @@ For deploying the complete ecosystem to AWS, refer to our dedicated IaC & GitOps
    ```bash
    terraform init && terraform apply
    ```
-   *(Creates VPC, EKS Cluster, RDS PostgreSQL 16, ElastiCache Valkey, 9 ECR repos, IAM OIDC Role, ALB, and ArgoCD)*.
+   *(Creates VPC, EKS Cluster, RDS PostgreSQL 16, In-Cluster Redis 7, 9 ECR repos, IAM OIDC Role, ALB, and ArgoCD)*.
 4. **Set GitHub Repository Secrets**:
    Copy `github_actions_role_arn` from Terraform output and set in this repo's **Settings** > **Secrets and variables** > **Actions**:
    - `AWS_ROLE_ARN`: from Terraform output
