@@ -36,9 +36,9 @@ jobs:
         run: bun run build
 
   deploy-container:
-    name: Build Docker & Push ECR (For Private EKS / Internal ALB)
+    name: Build Docker & Push ECR (Deploy to Amazon EKS)
     needs: lint-and-build
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push' && vars.DEPLOY_TARGET != 's3'
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -74,40 +74,3 @@ jobs:
           aws eks update-kubeconfig --region ${{ secrets.AWS_REGION || 'ap-southeast-1' }} --name ${{ secrets.EKS_CLUSTER_NAME || 'ecommerce' }}
           kubectl rollout restart deployment/admin-dashboard -n ecommerce
           kubectl rollout status deployment/admin-dashboard -n ecommerce --timeout=180s
-
-  deploy-s3-cloudfront:
-    name: Deploy to S3 + CloudFront (If DEPLOY_TARGET == 's3')
-    needs: lint-and-build
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push' && vars.DEPLOY_TARGET == 's3'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
-
-      - name: Install Dependencies
-        run: bun install --frozen-lockfile
-
-      - name: Build SPA for Production
-        env:
-          VITE_CLERK_PUBLISHABLE_KEY: ${{ secrets.VITE_CLERK_PUBLISHABLE_KEY }}
-          VITE_API_BASE_URL: ${{ secrets.VITE_API_BASE_URL }}
-          VITE_STOREFRONT_URL: ${{ secrets.VITE_STOREFRONT_URL }}
-        run: bun run build
-
-      - name: Configure AWS Credentials (OIDC)
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
-          aws-region: ${{ secrets.AWS_REGION || 'ap-southeast-1' }}
-
-      - name: Sync dist to S3 Bucket
-        run: |
-          aws s3 sync dist/ s3://${{ secrets.ADMIN_S3_BUCKET }} --delete
-
-      - name: Invalidate CloudFront Cache
-        if: secrets.CLOUDFRONT_DISTRIBUTION_ID != ''
-        run: |
-          aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
