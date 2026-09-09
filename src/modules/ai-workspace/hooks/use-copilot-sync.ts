@@ -22,12 +22,12 @@ export function useCopilotSync() {
   // 1. Context Awareness: Share current admin screen & state with the agent
   const contextValue = useMemo(() => {
     const path = location.pathname;
-    let pageName = "Dashboard Tổng quan";
-    if (path.startsWith("/products")) pageName = "Quản lý Sản phẩm";
-    else if (path.startsWith("/orders")) pageName = "Quản lý Đơn hàng";
-    else if (path.startsWith("/customers")) pageName = "Quản lý Khách hàng";
+    let pageName = "Dashboard Overview";
+    if (path.startsWith("/products")) pageName = "Product Management";
+    else if (path.startsWith("/orders")) pageName = "Order Management";
+    else if (path.startsWith("/customers")) pageName = "Customer Management";
     else if (path.startsWith("/ai-workspace")) pageName = "AI Workspace Studio";
-    else if (path.startsWith("/analytics")) pageName = "Báo cáo Phân tích";
+    else if (path.startsWith("/analytics")) pageName = "Analytics Reports";
 
     return {
       currentPath: path,
@@ -47,17 +47,17 @@ export function useCopilotSync() {
     {
       name: "navigateToPage",
       description:
-        "Điều hướng admin sang một trang cụ thể trong hệ thống (/products, /orders, /customers, /ai-workspace, /)",
+        "Navigate admin to a specific page in the system (/products, /orders, /customers, /ai-workspace, /)",
       parameters: z.object({
         path: z
           .string()
           .describe(
-            "Đường dẫn URL đích, ví dụ: '/products', '/orders', '/customers', '/ai-workspace'"
+            "Target URL path, e.g.: '/products', '/orders', '/customers', '/ai-workspace'"
           ),
       }),
       handler: async ({ path }) => {
         navigate(path);
-        return `Đã điều hướng người dùng sang trang: ${path}`;
+        return `Successfully navigated user to page: ${path}`;
       },
     },
     [navigate]
@@ -67,11 +67,11 @@ export function useCopilotSync() {
     {
       name: "openInStudio",
       description:
-        "Mở trang AI Workspace Studio toàn màn hình để hiển thị bảng số liệu hoặc biểu đồ chi tiết trên Canvas",
+        "Open AI Workspace Studio in full screen to display detailed metrics or charts on Canvas",
       parameters: z.object({}),
       handler: async () => {
         navigate("/ai-workspace");
-        return "Đã mở AI Workspace Studio thành công.";
+        return "Successfully opened AI Workspace Studio.";
       },
     },
     [navigate]
@@ -85,16 +85,16 @@ export function useCopilotSync() {
       return {
         suggestions: [
           {
-            title: "Cảnh báo tồn kho",
-            message: "Kiểm tra danh sách các sản phẩm có số lượng tồn kho dưới mức an toàn (<= 20 chiếc).",
+            title: "Inventory Alert",
+            message: "Check for products with stock levels below safe threshold (<= 20 units).",
           },
           {
-            title: "Sản phẩm bán chạy",
-            message: "Liệt kê các sản phẩm chủ lực và doanh số ước tính hiện tại.",
+            title: "Best Selling Products",
+            message: "List top performing products and current estimated sales.",
           },
           {
-            title: "Lọc áo khoác / Outerwear",
-            message: "Hiển thị danh sách sản phẩm thuộc danh mục outerwear dưới dạng catalog.",
+            title: "Filter Outerwear",
+            message: "Display products in the outerwear category as a catalog.",
           },
         ],
         available: "always" as const,
@@ -105,16 +105,16 @@ export function useCopilotSync() {
       return {
         suggestions: [
           {
-            title: "Đơn chờ thanh toán",
-            message: "Tìm kiếm danh sách các đơn hàng đang ở trạng thái PENDING_PAYMENT cần nhắc nhở khách.",
+            title: "Pending Payment Orders",
+            message: "Find orders currently in PENDING_PAYMENT status requiring customer reminders.",
           },
           {
-            title: "Đơn thất bại hoặc hủy",
-            message: "Có bao nhiêu đơn hàng bị thanh toán thất bại hoặc đã bị hủy gần đây?",
+            title: "Failed or Cancelled Orders",
+            message: "How many orders have failed payments or were recently cancelled?",
           },
           {
-            title: "Doanh thu & Số lượng đơn",
-            message: "Tổng hợp tổng doanh thu thực tế và tổng số đơn hàng trong hệ thống.",
+            title: "Revenue & Order Count",
+            message: "Summarize total actual revenue and total order count in the system.",
           },
         ],
         available: "always" as const,
@@ -125,12 +125,12 @@ export function useCopilotSync() {
       return {
         suggestions: [
           {
-            title: "Khách hàng đăng ký mới",
-            message: "Liệt kê danh sách các tài khoản khách hàng mới đăng ký gần đây.",
+            title: "New Customer Registrations",
+            message: "List recently registered customer accounts.",
           },
           {
-            title: "Phân loại người dùng",
-            message: "Thống kê người dùng theo vai trò admin và customer trong hệ thống.",
+            title: "User Role Breakdown",
+            message: "Break down users by admin and customer roles in the system.",
           },
         ],
         available: "always" as const,
@@ -141,20 +141,20 @@ export function useCopilotSync() {
     return {
       suggestions: [
         {
-          title: "Báo cáo doanh số",
-          message: "Hãy phân tích tổng doanh thu, số đơn hàng và giá trị trung bình đơn hàng (AOV).",
+          title: "Revenue Report",
+          message: "Analyze total revenue, order count, and average order value (AOV).",
         },
         {
-          title: "Cảnh báo tồn kho",
-          message: "Kiểm tra các sản phẩm sắp hết hàng và cần lên kế hoạch nhập thêm.",
+          title: "Inventory Alert",
+          message: "Check for low-stock items and plan restocking needs.",
         },
         {
-          title: "Sức khỏe thanh toán",
-          message: "Đánh giá tỷ lệ thanh toán thành công và các giao dịch đang gặp sự cố.",
+          title: "Payment Health",
+          message: "Evaluate payment success rate and inspect failing transactions.",
         },
         {
-          title: "Tạo bảng điều khiển A2UI",
-          message: "Hãy tạo một Dashboard Canvas tổng hợp KPI, biểu đồ doanh thu và danh sách đơn hàng mới.",
+          title: "Generate A2UI Dashboard",
+          message: "Create a Canvas Dashboard aggregating KPIs, revenue charts, and recent orders.",
         },
       ],
       available: "always" as const,

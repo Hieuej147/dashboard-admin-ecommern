@@ -26,7 +26,7 @@ export function TemplateCard({ item, onUse, disabled }: TemplateCardProps) {
         disabled={disabled}
         className="h-7 shrink-0 text-xs text-blue-600 border-blue-200 hover:bg-blue-50"
       >
-        Sử dụng
+        Use
         <ArrowRight className="ml-1 h-3 w-3" />
       </Button>
     </div>

@@ -12,10 +12,10 @@ export function SystemContextPanel() {
     <div className="flex flex-col gap-5 animate-in fade-in duration-300">
       <div>
         <h2 className="text-sm font-semibold text-slate-800">
-          Hệ sinh thái Dịch vụ & Kết nối AI
+          Microservices Ecosystem & AI Tools
         </h2>
         <p className="text-xs text-slate-500 mt-0.5">
-          Trợ lý Copilot được cấp quyền truy xuất các Microservices thông qua API Gateway với bảo mật phân quyền.
+          Copilot assistant securely queries microservices via the API Gateway with role-based access control.
         </p>
       </div>
 
@@ -23,7 +23,7 @@ export function SystemContextPanel() {
         <MicroserviceCard
           title="Catalog Service"
           badge="gRPC Live"
-          description="Quản lý sản phẩm, biến thể, mức tồn kho, danh mục, phân loại thương hiệu và mức giá khuyến mãi."
+          description="Manages product items, variants, stock counts, categories, brands, and active promotional pricing."
           icon={Package}
           iconBg="bg-blue-50"
           iconColor="text-blue-600"
@@ -32,7 +32,7 @@ export function SystemContextPanel() {
         <MicroserviceCard
           title="Order Service"
           badge="gRPC Live"
-          description="Quản lý đơn hàng, trạng thái (Chờ thanh toán, Đã thanh toán, Đang giao, Hoàn tất, Đã hủy) và tính toán chiết khấu."
+          description="Manages order lifecycles (PENDING_PAYMENT, PAID, DELIVERING, COMPLETED, CANCELLED) and revenue metrics."
           icon={ShoppingCart}
           iconBg="bg-indigo-50"
           iconColor="text-indigo-600"
@@ -41,7 +41,7 @@ export function SystemContextPanel() {
         <MicroserviceCard
           title="Customer Service"
           badge="gRPC Live"
-          description="Hồ sơ khách hàng, phân hạng thành viên, lịch sử đặt hàng, địa chỉ giao nhận và thông tin liên hệ."
+          description="Customer profiles, account roles, order histories, shipping addresses, and contact information."
           icon={Users}
           iconBg="bg-amber-50"
           iconColor="text-amber-600"
@@ -50,7 +50,7 @@ export function SystemContextPanel() {
         <MicroserviceCard
           title="A2UI Protocol Engine"
           badge="Active Portal"
-          description="Giao thức chuyển đổi dữ liệu phân tích từ Agent thành giao diện trực quan (Recharts, Grid tables, Action buttons) gắn thẳng vào Canvas."
+          description="Dynamic schema transforming agent analytics into generative UI surfaces (Recharts, grid tables, action buttons) mounted to the Canvas."
           icon={Layers}
           iconBg="bg-purple-50"
           iconColor="text-purple-600"
@@ -61,11 +61,10 @@ export function SystemContextPanel() {
         <div className="flex items-start gap-2.5">
           <HelpCircle className="h-4 w-4 text-slate-500 shrink-0 mt-0.5" />
           <div className="text-xs text-slate-600 space-y-1">
-            <p className="font-medium text-slate-800">Ghi chú vận hành an toàn</p>
+            <p className="font-medium text-slate-800">Safe Operations Policy</p>
             <p>
-              Mọi lệnh phân tích, vẽ biểu đồ và tóm tắt đều chạy ở chế độ chỉ đọc (Read-only).
-              Khi thực hiện các tác vụ thay đổi giá hàng loạt hoặc cập nhật tồn kho, Copilot sẽ yêu
-              cầu bạn xác nhận trước khi gửi lệnh thực thi xuống API Gateway.
+              All analytical queries, chart renderings, and summaries execute in safe read-only mode.
+              For batch price modifications or inventory updates, Copilot prompts for human administrator confirmation before executing requests via API Gateway.
             </p>
           </div>
         </div>

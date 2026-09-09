@@ -57,7 +57,7 @@ export function QuickPromptChips({
       {/* Label */}
       <span className="text-[10px] uppercase font-semibold text-slate-400 shrink-0 flex items-center gap-1 pl-0.5">
         <Sparkles className="w-3 h-3 text-amber-500" />
-        Gợi ý:
+        Suggestions:
       </span>
 
       {/* Optional Left Scroll Arrow */}
@@ -66,7 +66,7 @@ export function QuickPromptChips({
           type="button"
           onClick={() => scrollBy(-140)}
           className="h-5 w-5 rounded-full bg-white shadow-xs border border-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-800 shrink-0 transition"
-          aria-label="Cuộn sang trái"
+          aria-label="Scroll left"
         >
           <ChevronLeft className="h-3 w-3" />
         </button>
@@ -115,7 +115,7 @@ export function QuickPromptChips({
           type="button"
           onClick={() => scrollBy(140)}
           className="h-5 w-5 rounded-full bg-white shadow-xs border border-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-800 shrink-0 transition"
-          aria-label="Cuộn sang phải"
+          aria-label="Scroll right"
         >
           <ChevronRight className="h-3 w-3" />
         </button>
@@ -130,7 +130,7 @@ export function QuickPromptChips({
             reloadSuggestions();
           }
         }}
-        title="Tải lại gợi ý"
+        title="Refresh suggestions"
         className="rounded-md p-1 text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition shrink-0 disabled:opacity-40"
       >
         <RefreshCw

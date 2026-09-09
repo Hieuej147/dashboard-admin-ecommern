@@ -22,5 +22,5 @@ export const CHAT_INPUT = {
 };
 
 export const CHAT_LABELS = {
-  chatInputPlaceholder: "Hỏi về doanh số, tồn kho, đơn hàng hoặc yêu cầu AI tạo báo cáo...",
+  chatInputPlaceholder: "Ask about sales, inventory, orders, or request an AI report...",
 };

@@ -13,10 +13,10 @@ export function ChatStatusIndicator({ isRunning }: ChatStatusIndicatorProps) {
         </div>
         <div>
           <p className="text-xs font-semibold text-slate-800">
-            Trò chuyện cùng AI
+            AI Assistant Chat
           </p>
           <p className="text-[10px] text-slate-400">
-            {isRunning ? "Đang xử lý và tính toán..." : "Sẵn sàng nhận lệnh"}
+            {isRunning ? "Processing and generating..." : "Ready for instructions"}
           </p>
         </div>
       </div>

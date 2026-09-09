@@ -89,7 +89,7 @@ export function ThreadSelectorDropdown({
           <span className="flex items-center gap-1.5 truncate">
             <MessageSquare className="h-3.5 w-3.5 text-blue-600 shrink-0" />
             <span className="truncate">
-              {activeThread ? activeThread.name : "Hội thoại mới"}
+              {activeThread ? activeThread.name : "New Thread"}
             </span>
           </span>
           <ChevronDown className="h-3 w-3 text-slate-400 shrink-0 ml-1 transition-transform duration-200 [[data-popup-open]>&]:rotate-180" />
@@ -105,7 +105,7 @@ export function ThreadSelectorDropdown({
           <DropdownMenuGroup>
             <div className="flex items-center justify-between px-2 py-1 pb-2 border-b border-slate-100">
               <DropdownMenuLabel className="p-0 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
-                Hội thoại ({threads.length})
+                Threads ({threads.length})
               </DropdownMenuLabel>
               <Button
                 variant="ghost"
@@ -119,7 +119,7 @@ export function ThreadSelectorDropdown({
                 ) : (
                   <Plus className="h-3 w-3" />
                 )}
-                Tạo mới
+                Create New
               </Button>
             </div>
           </DropdownMenuGroup>
@@ -130,7 +130,7 @@ export function ThreadSelectorDropdown({
               <Search className="absolute left-3 top-2.5 h-3 w-3 text-slate-400 pointer-events-none" />
               <input
                 type="text"
-                placeholder="Tìm hội thoại..."
+                placeholder="Search threads..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onClick={(e) => e.stopPropagation()}
@@ -147,11 +147,11 @@ export function ThreadSelectorDropdown({
             {isLoading ? (
               <div className="flex items-center justify-center py-6 text-xs text-slate-400 gap-2">
                 <Loader2 className="h-3.5 w-3.5 animate-spin text-blue-600" />
-                Đang tải danh sách...
+                Loading threads...
               </div>
             ) : filteredThreads.length === 0 ? (
               <div className="py-6 text-center text-xs text-slate-400">
-                {searchQuery ? "Không tìm thấy hội thoại phù hợp." : "Chưa có cuộc hội thoại nào."}
+                {searchQuery ? "No matching threads found." : "No threads yet."}
               </div>
             ) : (
               <DropdownMenuGroup>
@@ -195,7 +195,7 @@ export function ThreadSelectorDropdown({
                             e.stopPropagation();
                             setThreadToRename(t);
                           }}
-                          title="Đổi tên"
+                          title="Rename"
                           className="rounded p-1 text-slate-400 hover:bg-white hover:text-slate-700 hover:shadow-xs transition"
                         >
                           <Pencil className="h-3 w-3" />
@@ -206,7 +206,7 @@ export function ThreadSelectorDropdown({
                             e.stopPropagation();
                             setThreadToArchive(t);
                           }}
-                          title="Lưu trữ"
+                          title="Archive"
                           className="rounded p-1 text-slate-400 hover:bg-rose-50 hover:text-rose-600 transition"
                         >
                           <Archive className="h-3 w-3" />

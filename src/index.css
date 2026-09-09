@@ -208,6 +208,6 @@
   --primary: oklch(0.55 0.22 264);
   --primary-foreground: oklch(
     0.98 0 0
-  ); /* chữ trắng, dùng khi có NỀN primary phía sau */
+  ); /* white text on primary background */
   --radius: 1rem;
 }

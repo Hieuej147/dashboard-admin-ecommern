@@ -7,7 +7,7 @@ type AuthLayoutProps = {
 export function AuthLayout({ children }: AuthLayoutProps) {
   return (
     <div className="flex min-h-screen bg-white">
-      {/* Cột trái - Hero/Branding (Chỉ hiện trên desktop) */}
+      {/* Left column - Hero/Branding (Desktop only) */}
       <div className="hidden lg:flex flex-col justify-between w-1/2 bg-gray-900 text-white p-12">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 bg-white rounded-md flex items-center justify-center">
@@ -30,10 +30,10 @@ export function AuthLayout({ children }: AuthLayoutProps) {
         </div>
       </div>
 
-      {/* Cột phải - Auth Form */}
+      {/* Right column - Auth Form */}
       <div className="flex flex-col items-center justify-center w-full lg:w-1/2 p-6 sm:p-12 bg-gray-50 dark:bg-gray-950">
         <div className="w-full max-w-md flex flex-col items-center">
-          {/* Logo cho mobile (ẩn trên desktop) */}
+          {/* Mobile logo (hidden on desktop) */}
           <div className="flex lg:hidden items-center gap-3 mb-8">
             <div className="w-8 h-8 bg-gray-900 rounded-md flex items-center justify-center shadow-sm">
               <span className="text-white font-bold text-xl leading-none">E</span>

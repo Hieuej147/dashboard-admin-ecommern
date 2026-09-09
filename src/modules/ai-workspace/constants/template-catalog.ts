@@ -2,45 +2,45 @@ import type { TemplateCategoryItem } from "../types/ai-workspace.types";
 
 export const TEMPLATE_CATEGORIES: TemplateCategoryItem[] = [
   {
-    category: "Vận hành Bán hàng",
+    category: "Sales & Operations",
     items: [
       {
-        title: "Tạo chiến dịch khuyến mãi Flash Sale cuối tuần",
-        prompt: "Lập kế hoạch chiến dịch khuyến mãi Flash Sale 48h cuối tuần: gợi ý mức giảm giá theo danh mục, điều kiện áp dụng và thông điệp truyền thông.",
+        title: "Create Weekend Flash Sale Campaign",
+        prompt: "Plan a 48-hour weekend Flash Sale campaign: suggest category discount rates, qualification rules, and promotional copy.",
       },
       {
-        title: "Phân tích giỏ hàng chưa thanh toán (Abandoned Cart)",
-        prompt: "Phân tích các sản phẩm thường bị bỏ quên trong giỏ hàng và gợi ý email remarketing kích cầu.",
+        title: "Abandoned Cart Diagnostic",
+        prompt: "Analyze frequently abandoned items in customer shopping carts and suggest targeted remarketing email sequences.",
       },
       {
-        title: "Dự báo doanh thu tháng tới theo xu hướng hiện tại",
-        prompt: "Dựa trên dữ liệu doanh thu tháng vừa qua, hãy dự báo xu hướng doanh số tháng tới và chỉ ra các ngành hàng tiềm năng.",
+        title: "Monthly Revenue Forecast",
+        prompt: "Based on recent sales velocity and performance data, forecast revenue trends for next month and highlight high-potential categories.",
       },
     ],
   },
   {
-    category: "Tối ưu Danh mục & Kho",
+    category: "Catalog & Inventory Optimization",
     items: [
       {
-        title: "Gợi ý gói combo sản phẩm bán kèm (Cross-sell)",
-        prompt: "Đề xuất 3 combo sản phẩm bán kèm nhau hiệu quả dựa trên danh mục hiện có để tăng giá trị trung bình trên mỗi đơn hàng.",
+        title: "Cross-Sell Bundle Recommendations",
+        prompt: "Propose 3 effective product bundling combos based on existing catalog inventory to increase Average Order Value (AOV).",
       },
       {
-        title: "Đánh giá hiệu suất sản phẩm tồn kho lâu ngày (Dead Stock)",
-        prompt: "Lọc các mặt hàng có tốc độ bán chậm trong 60 ngày qua và đề xuất phương án xả kho hoặc gộp quà tặng.",
+        title: "Dead Stock Clearance Strategy",
+        prompt: "Identify slow-moving inventory over the past 60 days and recommend clearance promotions or gift-with-purchase strategies.",
       },
     ],
   },
   {
-    category: "Hỗ trợ & Chăm sóc Khách hàng",
+    category: "Customer Support & Retention",
     items: [
       {
-        title: "Kịch bản xử lý phản hồi khiếu nại giao trễ",
-        prompt: "Viết kịch bản mẫu cho nhân viên CSKH xử lý trường hợp đơn hàng bị giao trễ do sự cố nhà vận chuyển, bao gồm lời xin lỗi và mã voucher bồi thường.",
+        title: "Delayed Shipping Resolution Script",
+        prompt: "Draft a support response template for carrier shipment delays, including empathetic apologies and compensation voucher codes.",
       },
       {
-        title: "Chính sách đổi trả và bảo hành minh bạch",
-        prompt: "Dự thảo chính sách đổi trả hàng trong 7 ngày và quy trình bảo hành rõ ràng, thân thiện với người tiêu dùng.",
+        title: "Transparent Return & Warranty Policy",
+        prompt: "Draft a consumer-friendly 7-day return policy and straightforward warranty fulfillment workflow.",
       },
     ],
   },

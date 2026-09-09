@@ -11,10 +11,10 @@ export function TemplateLibrary({ onUseTemplate, isRunning }: TemplateLibraryPro
     <div className="flex flex-col gap-6 animate-in fade-in duration-300">
       <div>
         <h2 className="text-sm font-semibold text-slate-800">
-          Thư viện Mẫu Tác vụ Thương mại Điện tử
+          E-Commerce Workflow Template Library
         </h2>
         <p className="text-xs text-slate-500 mt-0.5">
-          Các kịch bản prompt chuẩn hóa giúp quản trị viên vận hành nhanh chóng mà không cần soạn thảo lại từ đầu.
+          Curated prompts empowering administrators to execute common workflows instantly without drafting from scratch.
         </p>
       </div>
 

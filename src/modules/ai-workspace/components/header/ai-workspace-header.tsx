@@ -52,7 +52,7 @@ export function AiWorkspaceHeader({
             </span>
           </div>
           <p className="text-xs text-slate-500 hidden sm:block">
-            Trợ lý điều hành thương mại điện tử & Trực quan hóa dữ liệu động A2UI
+            E-Commerce Copilot Assistant & A2UI Dynamic Generative Surfaces
           </p>
         </div>
       </div>
@@ -81,7 +81,7 @@ export function AiWorkspaceHeader({
             className="h-8 gap-1.5 border-slate-200 text-xs text-slate-600 hover:bg-rose-50 hover:text-rose-600 hover:border-rose-200"
           >
             <Trash2 className="h-3.5 w-3.5" />
-            <span className="hidden md:inline">Xóa bảng số liệu</span>
+            <span className="hidden md:inline">Clear Canvas</span>
           </Button>
         )}
 
@@ -93,7 +93,7 @@ export function AiWorkspaceHeader({
           className="h-8 gap-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium shadow-xs"
         >
           <Plus className="h-3.5 w-3.5" />
-          <span>Hội thoại mới</span>
+          <span>New Thread</span>
         </Button>
       </div>
     </div>

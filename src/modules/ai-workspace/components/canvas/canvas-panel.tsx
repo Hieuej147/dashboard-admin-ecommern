@@ -50,7 +50,7 @@ export function CanvasPanel({
             }`}
           >
             <Wand2 className="h-3.5 w-3.5" />
-            Mẫu tác vụ AI
+            AI Templates
           </button>
 
           <button
@@ -63,7 +63,7 @@ export function CanvasPanel({
             }`}
           >
             <Cpu className="h-3.5 w-3.5" />
-            Khả năng & Kết nối
+            Capabilities & Systems
           </button>
         </div>
 

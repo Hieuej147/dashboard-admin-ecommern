@@ -69,10 +69,10 @@ export function CopilotSidebarHeader({
             }
             navigate("/ai-workspace");
           }}
-          title="Mở toàn màn hình trong AI Studio"
+          title="Open full screen in AI Studio"
           className="inline-flex items-center gap-1 text-[11px] font-medium text-blue-600 hover:text-blue-700 bg-blue-50 hover:bg-blue-100 px-2 py-1 h-7 rounded-md transition shrink-0"
         >
-          <span className="hidden sm:inline">Mở Studio</span>
+          <span className="hidden sm:inline">Open Studio</span>
           <ExternalLink className="w-3 h-3 shrink-0" />
         </button>
         {closeButton}

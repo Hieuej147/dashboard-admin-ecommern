@@ -32,10 +32,10 @@ export function useBackendToolRenderers() {
             </div>
             <div className="flex-1 min-w-0">
               <span className="font-semibold text-blue-900">
-                Đang tổng hợp số liệu kinh doanh...
+                Aggregating business metrics...
               </span>
               <p className="text-[10px] text-blue-700/80 mt-0.5 truncate">
-                Truy vấn dữ liệu từ Payments, Orders & Catalog
+                Querying data from Payments, Orders & Catalog
               </p>
             </div>
             <Loader2 className="h-3.5 w-3.5 animate-spin text-blue-600 shrink-0" />
@@ -58,7 +58,7 @@ export function useBackendToolRenderers() {
           <div className="flex items-center justify-between">
             <span className="flex items-center gap-1.5 font-semibold text-emerald-900">
               <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
-              Đã nạp số liệu kinh doanh
+              Business metrics loaded
             </span>
             <Badge
               variant="outline"
@@ -70,16 +70,16 @@ export function useBackendToolRenderers() {
           {summary && (
             <div className="mt-2 grid grid-cols-2 gap-2 text-[11px] pt-1.5 border-t border-emerald-200/60">
               <div>
-                <span className="text-slate-500">Doanh thu: </span>
+                <span className="text-slate-500">Revenue: </span>
                 <span className="font-semibold text-slate-900">
                   {new Intl.NumberFormat("vi-VN").format(summary.totalRevenue || 0)}{" "}
                   {summary.currency || "VND"}
                 </span>
               </div>
               <div>
-                <span className="text-slate-500">Đơn hàng: </span>
+                <span className="text-slate-500">Orders: </span>
                 <span className="font-semibold text-slate-900">
-                  {summary.totalOrders || 0} đơn
+                  {summary.totalOrders || 0} orders
                 </span>
               </div>
             </div>
@@ -107,11 +107,11 @@ export function useBackendToolRenderers() {
             </div>
             <div className="flex-1 min-w-0">
               <span className="font-semibold text-indigo-900">
-                Đang tra cứu kho sản phẩm...
+                Querying product inventory...
               </span>
               {parameters?.search && (
                 <p className="text-[10px] text-indigo-700/80 mt-0.5 truncate">
-                  Từ khóa: "{parameters.search}"
+                  Keyword: "{parameters.search}"
                 </p>
               )}
             </div>
@@ -128,7 +128,7 @@ export function useBackendToolRenderers() {
           <div className="flex items-center justify-between">
             <span className="flex items-center gap-1.5 font-semibold text-indigo-900">
               <CheckCircle2 className="h-4 w-4 text-indigo-600 shrink-0" />
-              Đã tìm thấy {count} sản phẩm phù hợp
+              Found {count} matching products
             </span>
             <Badge
               variant="outline"
@@ -159,11 +159,11 @@ export function useBackendToolRenderers() {
             </div>
             <div className="flex-1 min-w-0">
               <span className="font-semibold text-amber-900">
-                Đang tra cứu danh sách đơn hàng...
+                Querying order list...
               </span>
               {parameters?.status && (
                 <p className="text-[10px] text-amber-700/80 mt-0.5 truncate">
-                  Trạng thái: {parameters.status}
+                  Status: {parameters.status}
                 </p>
               )}
             </div>
@@ -180,7 +180,7 @@ export function useBackendToolRenderers() {
           <div className="flex items-center justify-between">
             <span className="flex items-center gap-1.5 font-semibold text-amber-900">
               <CheckCircle2 className="h-4 w-4 text-amber-600 shrink-0" />
-              Đã tải {count} đơn hàng
+              Loaded {count} orders
             </span>
             <Badge
               variant="outline"
@@ -212,7 +212,7 @@ export function useBackendToolRenderers() {
             </div>
             <div className="flex-1 min-w-0">
               <span className="font-semibold text-purple-900">
-                Đang tra cứu danh sách khách hàng...
+                Querying customer directory...
               </span>
             </div>
             <Loader2 className="h-3.5 w-3.5 animate-spin text-purple-600 shrink-0" />
@@ -228,7 +228,7 @@ export function useBackendToolRenderers() {
           <div className="flex items-center justify-between">
             <span className="flex items-center gap-1.5 font-semibold text-purple-900">
               <CheckCircle2 className="h-4 w-4 text-purple-600 shrink-0" />
-              Đã tải {count} hồ sơ người dùng
+              Loaded {count} user profiles
             </span>
             <Badge
               variant="outline"
@@ -253,7 +253,7 @@ export function useBackendToolRenderers() {
           <div className="my-2 flex items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-1.5 text-xs text-slate-700">
             <Loader2 className="h-3.5 w-3.5 animate-spin text-blue-600 shrink-0" />
             <span>
-              Đang thực thi tác vụ: <strong>{name}</strong>...
+              Executing action: <strong>{name}</strong>...
             </span>
           </div>
         );
@@ -263,7 +263,7 @@ export function useBackendToolRenderers() {
         <div className="my-1.5 flex items-center gap-1.5 text-[11px] text-slate-500">
           <CheckCircle2 className="h-3 w-3 text-emerald-500 shrink-0" />
           <span>
-            Đã hoàn thành <strong>{name}</strong>
+            Completed <strong>{name}</strong>
           </span>
         </div>
       );

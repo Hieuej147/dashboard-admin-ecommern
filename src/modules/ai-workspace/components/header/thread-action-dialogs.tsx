@@ -51,10 +51,10 @@ export function RenameThreadDialog({
         <form onSubmit={handleSubmit}>
           <DialogHeader>
             <DialogTitle className="text-sm font-semibold text-slate-900">
-              Đổi tên cuộc hội thoại
+              Rename Thread
             </DialogTitle>
             <DialogDescription className="text-xs text-slate-500">
-              Đặt tên ngắn gọn, dễ nhớ để tiện tra cứu lại các tác vụ sau này.
+              Give this thread a concise title to easily reference tasks later.
             </DialogDescription>
           </DialogHeader>
 
@@ -62,7 +62,7 @@ export function RenameThreadDialog({
             <Input
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              placeholder="Nhập tiêu đề hội thoại..."
+              placeholder="Enter thread title..."
               className="text-xs h-9"
               autoFocus
               maxLength={100}
@@ -78,7 +78,7 @@ export function RenameThreadDialog({
               className="h-8 text-xs"
               disabled={isRenaming}
             >
-              Hủy
+              Cancel
             </Button>
             <Button
               type="submit"
@@ -86,7 +86,7 @@ export function RenameThreadDialog({
               className="h-8 text-xs bg-blue-600 hover:bg-blue-700 text-white"
               disabled={isRenaming || !title.trim() || title.trim() === thread?.name}
             >
-              {isRenaming ? "Đang lưu..." : "Lưu thay đổi"}
+              {isRenaming ? "Saving..." : "Save Changes"}
             </Button>
           </DialogFooter>
         </form>
@@ -125,14 +125,14 @@ export function ArchiveThreadDialog({
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="text-sm font-semibold text-slate-900">
-            Lưu trữ cuộc hội thoại
+            Archive Thread
           </DialogTitle>
           <DialogDescription className="text-xs text-slate-500">
-            Bạn có chắc muốn lưu trữ cuộc hội thoại "
+            Are you sure you want to archive the thread "
             <span className="font-semibold text-slate-700">
               {thread?.name}
             </span>
-            "? Cuộc hội thoại này sẽ được ẩn khỏi danh sách lựa chọn nhanh.
+            "? This thread will be hidden from the active thread list.
           </DialogDescription>
         </DialogHeader>
 
@@ -145,7 +145,7 @@ export function ArchiveThreadDialog({
             className="h-8 text-xs"
             disabled={isArchiving}
           >
-            Hủy
+            Cancel
           </Button>
           <Button
             type="button"
@@ -155,7 +155,7 @@ export function ArchiveThreadDialog({
             className="h-8 text-xs"
             disabled={isArchiving}
           >
-            {isArchiving ? "Đang xử lý..." : "Xác nhận lưu trữ"}
+            {isArchiving ? "Archiving..." : "Confirm Archive"}
           </Button>
         </DialogFooter>
       </DialogContent>

@@ -38,10 +38,10 @@ export class AiWorkspaceErrorBoundary extends Component<Props, State> {
           </div>
           <div className="max-w-md space-y-1.5">
             <h3 className="text-base font-semibold text-slate-800">
-              Đã có lỗi xảy ra trong AI Workspace
+              An error occurred in AI Workspace
             </h3>
             <p className="text-xs text-slate-500 line-clamp-2">
-              {this.state.error?.message || "Không thể tải giao diện tương tác AI."}
+              {this.state.error?.message || "Failed to load AI workspace interface."}
             </p>
           </div>
           <Button
@@ -50,7 +50,7 @@ export class AiWorkspaceErrorBoundary extends Component<Props, State> {
             className="gap-2 bg-blue-600 hover:bg-blue-700 text-white text-xs"
           >
             <RefreshCw className="h-3.5 w-3.5" />
-            Thử tải lại giao diện
+            Reload Interface
           </Button>
         </div>
       );

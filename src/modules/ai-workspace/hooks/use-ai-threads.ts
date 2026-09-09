@@ -50,7 +50,7 @@ export function useAiThreads(agentId: string = "dashboard") {
     mutationFn: async (input?: CreateThreadInput) => {
       const res = await api.post("/api/copilotkit/threads", {
         agentId: input?.agentId ?? agentId,
-        title: input?.title ?? "Hội thoại mới",
+        title: input?.title ?? "New Thread",
       });
       return res.data as AiThread;
     },

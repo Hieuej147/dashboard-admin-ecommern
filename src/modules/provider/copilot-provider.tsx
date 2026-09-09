@@ -64,7 +64,7 @@ export function CopilotAuthProvider({ children }: { children: ReactNode }) {
       <div className="flex h-screen w-screen items-center justify-center bg-slate-50">
         <div className="flex flex-col items-center gap-2.5">
           <div className="h-7 w-7 animate-spin rounded-full border-2 border-blue-600 border-t-transparent" />
-          <p className="text-xs text-slate-500 font-medium">Khởi tạo AI Assistant...</p>
+          <p className="text-xs text-slate-500 font-medium">Initializing AI Assistant...</p>
         </div>
       </div>
     );

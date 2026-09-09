@@ -3,23 +3,23 @@ import type { QuickPromptItem } from "../types/ai-workspace.types";
 
 export const QUICK_PROMPT_CHIPS: QuickPromptItem[] = [
   {
-    label: "Báo cáo doanh thu tuần",
-    prompt: "Tạo báo cáo tổng hợp doanh thu và số lượng đơn hàng tuần qua dưới dạng biểu đồ và bảng số liệu.",
+    label: "Weekly Revenue Report",
+    prompt: "Generate a summary report of revenue and order volume for the past week with visual charts and metrics.",
     icon: TrendingUp,
   },
   {
-    label: "SKU sắp hết hàng",
-    prompt: "Kiểm tra các sản phẩm có số lượng tồn kho thấp dưới 10 đơn vị và lập danh sách đề xuất nhập hàng.",
+    label: "Low Stock Alert",
+    prompt: "Check products with inventory below 10 units and create a reorder recommendation list.",
     icon: AlertTriangle,
   },
   {
-    label: "Viết mô tả SEO sản phẩm",
-    prompt: "Tạo bản thảo mô tả sản phẩm chuẩn SEO cho một sản phẩm thời trang cao cấp gồm tiêu đề, bullet points đặc tính nổi bật và thẻ meta.",
+    label: "Draft Product SEO",
+    prompt: "Draft an SEO-optimized product description for a premium fashion item with bullet points and meta tags.",
     icon: Wand2,
   },
   {
-    label: "Phân tích tỉ lệ hủy đơn",
-    prompt: "Phân tích nguyên nhân các đơn hàng bị huỷ hoặc thanh toán thất bại gần đây và đề xuất giải pháp khắc phục.",
+    label: "Cancellation Analysis",
+    prompt: "Analyze recent cancelled or failed payment orders and suggest actionable mitigation steps.",
     icon: BarChart3,
   },
 ];

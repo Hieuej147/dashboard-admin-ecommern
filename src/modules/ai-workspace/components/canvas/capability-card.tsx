@@ -43,7 +43,7 @@ export function CapabilityCard({ card, onSelect, disabled }: CapabilityCardProps
       </div>
 
       <div className="mt-3.5 flex items-center text-xs font-medium text-blue-600 group-hover:translate-x-0.5 transition-transform">
-        <span>Chạy phân tích ngay</span>
+        <span>Run Analysis Now</span>
         <ArrowRight className="ml-1 h-3.5 w-3.5" />
       </div>
     </div>

@@ -27,13 +27,11 @@ export function CanvasEmptyShowcase({
                 <Sparkles className="h-4 w-4" />
               </span>
               <h2 className="text-base font-semibold text-slate-900">
-                Không gian Trực quan hóa & Tác nghiệp Trực tiếp
+                Live Generative Canvas & Dynamic Workspace
               </h2>
             </div>
             <p className="text-xs text-slate-600 leading-relaxed pt-1">
-              Khi bạn yêu cầu AI tạo báo cáo doanh số, cảnh báo tồn kho hoặc phân tích chỉ số,
-              kết quả sẽ được kết xuất động (A2UI) với biểu đồ tương tác, bảng dữ liệu và thẻ
-              hành động ngay trên khung Canvas này.
+              When you ask the AI assistant to generate sales reports, inventory alerts, or performance diagnostics, results render dynamically via A2UI with interactive charts, grids, and action cards right on this canvas.
             </p>
           </div>
         </div>
@@ -58,9 +56,9 @@ export function CanvasEmptyShowcase({
             <BarChart3 className="h-4 w-4" />
           </span>
           <div>
-            <h4 className="text-xs font-semibold text-slate-800">Biểu đồ Tương tác</h4>
+            <h4 className="text-xs font-semibold text-slate-800">Interactive Charts</h4>
             <p className="mt-0.5 text-[11px] text-slate-500">
-              Tự động vẽ Recharts đường, cột, tròn theo thời gian thực từ dữ liệu API.
+              Automatically renders real-time Recharts line, bar, and pie graphs from backend API data.
             </p>
           </div>
         </div>
@@ -70,9 +68,9 @@ export function CanvasEmptyShowcase({
             <ShieldCheck className="h-4 w-4" />
           </span>
           <div>
-            <h4 className="text-xs font-semibold text-slate-800">An toàn & Kiểm soát</h4>
+            <h4 className="text-xs font-semibold text-slate-800">Safety & Oversight</h4>
             <p className="mt-0.5 text-[11px] text-slate-500">
-              Truy vấn đọc an toàn, cần xác nhận của quản trị viên đối với thao tác ghi dữ liệu lớn.
+              Safe read-only analytical queries, requiring human administrator confirmation for write operations.
             </p>
           </div>
         </div>
@@ -82,9 +80,9 @@ export function CanvasEmptyShowcase({
             <CheckCircle2 className="h-4 w-4" />
           </span>
           <div>
-            <h4 className="text-xs font-semibold text-slate-800">Cơ chế Portal</h4>
+            <h4 className="text-xs font-semibold text-slate-800">Portal Architecture</h4>
             <p className="mt-0.5 text-[11px] text-slate-500">
-              Các thành phần A2UI tự động gắn vào Canvas mà không gây gián đoạn khung trò chuyện.
+              Dynamic A2UI components mount directly to the canvas surface without cluttering the chat thread.
             </p>
           </div>
         </div>

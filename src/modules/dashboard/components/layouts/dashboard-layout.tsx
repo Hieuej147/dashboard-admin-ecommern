@@ -40,7 +40,7 @@ const COPILOT_INPUT = {
 
 const COPILOT_LABELS = {
   modalHeaderTitle: "AI Assistant",
-  chatInputPlaceholder: "Hỏi về doanh số, đơn hàng, sản phẩm...",
+  chatInputPlaceholder: "Ask about sales, orders, products...",
 };
 
 const COPILOT_HEADER = {
