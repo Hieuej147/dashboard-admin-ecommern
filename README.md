@@ -8,12 +8,12 @@ Centralized administrative backoffice portal for managing products, orders, cust
 
 This project is part of an integrated 4-part microservices platform:
 
-| Repository | Tech Stack | Role & Link |
-| :--- | :--- | :--- |
-| **Backend Monorepo** | NestJS 11, gRPC, PostgreSQL, Prisma, Inngest | RESTful API Gateway, gRPC microservices, Stripe & Clerk webhooks. <br>🔗 Repo: [`https://github.com/Hieuej147/ecommerce-backend.git`](https://github.com/Hieuej147/ecommerce-backend.git) |
-| **Customer Storefront** | Next.js 16, React 19, Tailwind v4 | Customer shop, responsive featured hero banner, cart, Stripe checkout. <br>🔗 Repo: [`https://github.com/Hieuej147/-E-commerce.git`](https://github.com/Hieuej147/-E-commerce.git) |
-| **Admin Dashboard** (This repo) | React 19, Vite, TypeScript, Cloudflare Zero Trust | Backoffice management, real-time KPI metrics, orders & catalog CRUD. <br>🔗 Repo: [`https://github.com/Hieuej147/dashboard-admin-ecommern.git`](https://github.com/Hieuej147/dashboard-admin-ecommern.git) |
-| **DevOps & GitOps (IaC & Manifests)** | Terraform, Helm, AWS EKS, AWS ECR, OIDC | Infrastructure as Code, OIDC authentication, 9 ECR registries, Kubernetes manifests. <br>🔗 Repo: [`https://github.com/Hieuej147/ecommerce-devops.git`](https://github.com/Hieuej147/ecommerce-devops.git) |
+| Repository                            | Tech Stack                                        | Role & Link                                                                                                                                                                                                |
+| :------------------------------------ | :------------------------------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Backend Monorepo**                  | NestJS 11, gRPC, PostgreSQL, Prisma, Inngest      | RESTful API Gateway, gRPC microservices, Stripe & Clerk webhooks. <br>🔗 Repo: [`https://github.com/Hieuej147/ecommerce-backend.git`](https://github.com/Hieuej147/ecommerce-backend.git)                  |
+| **Customer Storefront**               | Next.js 16, React 19, Tailwind v4                 | Customer shop, responsive featured hero banner, cart, Stripe checkout. <br>🔗 Repo: [`https://github.com/Hieuej147/E-commerce`](https://github.com/Hieuej147/E-commerce)                                   |
+| **Admin Dashboard** (This repo)       | React 19, Vite, TypeScript, Cloudflare Zero Trust | Backoffice management, real-time KPI metrics, orders & catalog CRUD. <br>🔗 Repo: [`https://github.com/Hieuej147/dashboard-admin-ecommern.git`](https://github.com/Hieuej147/dashboard-admin-ecommern.git) |
+| **DevOps & GitOps (IaC & Manifests)** | Terraform, Helm, AWS EKS, AWS ECR, OIDC           | Infrastructure as Code, OIDC authentication, 9 ECR registries, Kubernetes manifests. <br>🔗 Repo: [`https://github.com/Hieuej147/ecommerce-devops.git`](https://github.com/Hieuej147/ecommerce-devops.git) |
 
 ---
 
@@ -22,6 +22,7 @@ This project is part of an integrated 4-part microservices platform:
 > **Architecture Reference:** Inspired by and adapted from the administrative management pattern in [Jayce-Anh/shopping-cart-project](https://github.com/Jayce-Anh/shopping-cart-project) (originally based on [sivaprasadreddy/spring-boot-microservices-series](https://github.com/sivaprasadreddy/spring-boot-microservices-series.git)).
 
 ### Key Adaptations & Improvements:
+
 1. **Isolated Administrative Repository**: The reference project lacked an independent administrative backoffice. This project isolates the admin interface into a dedicated repository, preventing regular customers from ever discovering or probing administrative assets.
 2. **Perimeter Edge Security (Cloudflare Zero Trust - Option 1)**: Shields `admin.yourdomain.com` behind an edge access wall. Visitors must authenticate with an email One-Time PIN (OTP) before downloading any JavaScript code ($0 cost, 100% blocker against unauthorized bots/scanners).
 3. **Real-Time KPI Dashboard**: Displays live revenue metrics, order volumes, and payment status charts, handling 64-bit integer (`Protobuf Long`) data serialization from backend gRPC microservices.
@@ -73,7 +74,7 @@ mkdir my-ecommerce && cd my-ecommerce
 
 # 2. Clone all 4 repositories
 git clone https://github.com/Hieuej147/ecommerce-backend.git backend
-git clone https://github.com/Hieuej147/-E-commerce.git storefront
+git clone https://github.com/Hieuej147/E-commerce storefront
 git clone https://github.com/Hieuej147/dashboard-admin-ecommern.git admin-dashboard
 git clone https://github.com/Hieuej147/ecommerce-devops.git devops
 
@@ -114,6 +115,7 @@ cp .env.example .env
 ```
 
 Ensure `.env` contains:
+
 ```env
 VITE_CLERK_PUBLISHABLE_KEY=pk_test_your_clerk_publishable_key
 VITE_API_BASE_URL=http://localhost:3000/v1
@@ -151,6 +153,7 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 For the complete AWS infrastructure setup, consult our primary infrastructure repository: [`ecommerce-devops`](https://github.com/Hieuej147/ecommerce-devops.git).
 
 ### Quick Deployment Flow:
+
 1. **GitHub Secrets Configuration**:
    In this repository's **Settings** > **Secrets and variables** > **Actions** > **New repository secret**:
    - `AWS_ROLE_ARN`: `arn:aws:iam::<YOUR_AWS_ACCOUNT_ID>:role/prod-ecommerce-github-actions-role`
@@ -165,4 +168,3 @@ For the complete AWS infrastructure setup, consult our primary infrastructure re
    git push origin main
    ```
    GitHub Actions will automatically test, build, push to AWS ECR, and execute a zero-downtime rolling restart on Amazon EKS!
-
