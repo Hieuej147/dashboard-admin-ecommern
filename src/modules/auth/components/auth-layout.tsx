@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { ArrowUpRight, ShieldCheck, Terminal, Radio } from "lucide-react";
 
 type AuthLayoutProps = {
@@ -191,6 +192,30 @@ export function AuthLayout({ children, mode = "sign-in" }: AuthLayoutProps) {
               {mode === "sign-in" ? "[ AUTH_MODE: OPERATOR_SIGN_IN ]" : "[ AUTH_MODE: OPERATOR_REGISTRATION ]"}
             </span>
             <span className="text-[#ece945] font-bold">PORT 443 SECURE</span>
+          </div>
+
+          {/* Mode Switch Tabs (Client-Side SPA Navigation) */}
+          <div className="grid grid-cols-2 gap-2 mb-3">
+            <Link
+              to="/sign-in"
+              className={`h-9 inline-flex items-center justify-center font-mono text-xs font-bold uppercase tracking-wider border transition-all cursor-pointer ${
+                mode === "sign-in"
+                  ? "border-foreground bg-foreground text-background shadow-hard-sm"
+                  : "border-border bg-card text-muted-foreground hover:text-foreground hover:border-foreground"
+              }`}
+            >
+              [ SIGN IN ]
+            </Link>
+            <Link
+              to="/sign-up"
+              className={`h-9 inline-flex items-center justify-center font-mono text-xs font-bold uppercase tracking-wider border transition-all cursor-pointer ${
+                mode === "sign-up"
+                  ? "border-foreground bg-foreground text-background shadow-hard-sm"
+                  : "border-border bg-card text-muted-foreground hover:text-foreground hover:border-foreground"
+              }`}
+            >
+              [ REGISTER ]
+            </Link>
           </div>
 
           {/* Embedded Form Component */}
