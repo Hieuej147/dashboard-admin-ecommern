@@ -17,11 +17,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import type { OrderDto } from "@/hooks/query-key/query-key";
-import { useCancelOrder } from "@/hooks/use-orders";
 import { PaymentDetailModal } from "@/modules/payments";
 import { formatVnd } from "@/lib/utils";
 import {
-  Ban,
   Calendar,
   CreditCard,
   ExternalLink,
@@ -41,9 +39,7 @@ interface OrderDetailProps {
 }
 
 export function OrderDetail({ order, open, onOpenChange }: OrderDetailProps) {
-  const [confirmCancel, setConfirmCancel] = useState(false);
   const [paymentModalOpen, setPaymentModalOpen] = useState(false);
-  const cancelOrder = useCancelOrder();
 
   if (!order) return null;
 
@@ -51,21 +47,6 @@ export function OrderDetail({ order, open, onOpenChange }: OrderDetailProps) {
     (acc, item) => acc + (item.quantity || 0),
     0,
   );
-
-  const canCancel =
-    order.status !== "CANCELLED" &&
-    order.status !== "DELIVERED" &&
-    order.status !== "COMPLETED";
-
-  const handleCancelOrder = async () => {
-    try {
-      await cancelOrder.mutateAsync(order.id);
-      setConfirmCancel(false);
-      onOpenChange(false);
-    } catch (err) {
-      console.error("Failed to cancel order:", err);
-    }
-  };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -242,40 +223,18 @@ export function OrderDetail({ order, open, onOpenChange }: OrderDetailProps) {
             Updated {formatDate(order.updatedAt)}
           </div>
 
-          {canCancel && (
-            <div className="flex items-center gap-2">
-              {confirmCancel ? (
-                <div className="flex items-center gap-1.5">
-                  <span className="text-xs text-rose-600 font-bold">Cancel this order?</span>
-                  <button
-                    type="button"
-                    disabled={cancelOrder.isPending}
-                    onClick={handleCancelOrder}
-                    className="px-2.5 py-1 text-xs font-bold bg-rose-600 text-white hover:bg-rose-700 transition disabled:opacity-50 cursor-pointer"
-                  >
-                    {cancelOrder.isPending ? "Canceling..." : "Confirm Cancel"}
-                  </button>
-                  <button
-                    type="button"
-                    disabled={cancelOrder.isPending}
-                    onClick={() => setConfirmCancel(false)}
-                    className="px-2 py-1 text-xs text-foreground border border-border hover:bg-muted transition cursor-pointer"
-                  >
-                    Back
-                  </button>
-                </div>
-              ) : (
-                <button
-                  type="button"
-                  onClick={() => setConfirmCancel(true)}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-rose-600 dark:text-rose-400 hover:bg-rose-500/10 border border-rose-300 dark:border-rose-900/50 transition cursor-pointer"
-                >
-                  <Ban className="h-3.5 w-3.5" />
-                  CANCEL ORDER
-                </button>
-              )}
-            </div>
-          )}
+          <div className="flex items-center gap-3">
+            <span className="text-[10px] text-muted-foreground uppercase tracking-wider">
+              [ IMMUTABLE AUDIT RECORD ]
+            </span>
+            <button
+              type="button"
+              onClick={() => onOpenChange(false)}
+              className="border border-border bg-card px-3 py-1 text-xs font-bold uppercase tracking-wider text-foreground hover:bg-muted transition-colors cursor-pointer"
+            >
+              CLOSE
+            </button>
+          </div>
         </DialogFooter>
       </DialogContent>
 

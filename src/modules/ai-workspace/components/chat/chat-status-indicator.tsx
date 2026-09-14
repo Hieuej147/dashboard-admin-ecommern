@@ -22,7 +22,7 @@ export function ChatStatusIndicator({ isRunning }: ChatStatusIndicatorProps) {
       </div>
       {isRunning && (
         <span className="border border-[#ece945]/50 bg-[#ece945]/10 px-2 py-0.5 text-[10px] font-bold text-foreground dark:text-[#ece945] flex items-center gap-1.5 shadow-hard-sm">
-          <span className="h-1.5 w-1.5 bg-[#ece945] animate-ping" />
+          <span className="h-1.5 w-1.5 bg-[#ece945] animate-pulse shrink-0 shadow-[0_0_4px_rgba(236,233,69,0.8)]" />
           [ GENERATING ]
         </span>
       )}

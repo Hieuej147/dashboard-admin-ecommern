@@ -1,5 +1,6 @@
 import React from "react";
 import { Download, Search } from "lucide-react";
+import { toast } from "@/components/ui/toast";
 
 interface ProductsFilterBarProps {
   search: string;
@@ -36,12 +37,13 @@ export const ProductsFilterBar = React.memo(function ProductsFilterBar({
           <option value="ACTIVE">IN STOCK</option>
           <option value="LOW_STOCK">LOW STOCK</option>
           <option value="OUT_OF_STOCK">OUT OF STOCK</option>
+          <option value="ARCHIVED">ARCHIVED</option>
         </select>
 
         <button
           type="button"
           onClick={() => {
-            alert("Preparing CSV export dataset...");
+            toast.info("EXPORT INITIATED", "Preparing CSV inventory dataset for download.");
           }}
           className="inline-flex h-9 items-center justify-center gap-2 border border-border bg-muted/40 hover:bg-muted px-3 text-xs font-bold uppercase tracking-wider text-foreground transition-colors cursor-pointer"
         >

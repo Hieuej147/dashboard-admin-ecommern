@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { CreditCard, ExternalLink, Hash, Clock, Copy, Check } from "lucide-react";
+import { toast } from "@/components/ui/toast";
 
 interface PaymentDetailModalProps {
   paymentId: string | null;
@@ -31,9 +32,10 @@ export const PaymentDetailModal = React.memo(function PaymentDetailModal({
     }).format(amountMinor);
   };
 
-  const copyToClipboard = (text: string, key: string) => {
+  const copyToClipboard = (text: string, key: string, label: string) => {
     void navigator.clipboard.writeText(text);
     setCopiedKey(key);
+    toast.info(`[ COPIED ] ${label.toUpperCase()} copied to clipboard`);
     setTimeout(() => setCopiedKey(null), 2000);
   };
 
@@ -113,7 +115,7 @@ export const PaymentDetailModal = React.memo(function PaymentDetailModal({
                     <span className="truncate max-w-[220px]">{payment.id}</span>
                     <button
                       type="button"
-                      onClick={() => copyToClipboard(payment.id, "tx-id")}
+                      onClick={() => copyToClipboard(payment.id, "tx-id", "Transaction ID")}
                       className="p-1 hover:bg-muted text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
                       title="Copy transaction ID"
                     >
@@ -144,7 +146,7 @@ export const PaymentDetailModal = React.memo(function PaymentDetailModal({
                       </span>
                       <button
                         type="button"
-                        onClick={() => copyToClipboard(payment.providerSessionId!, "sess-id")}
+                        onClick={() => copyToClipboard(payment.providerSessionId!, "sess-id", "Stripe Session ID")}
                         className="p-1 hover:bg-muted text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
                         title="Copy Session ID"
                       >
@@ -166,7 +168,7 @@ export const PaymentDetailModal = React.memo(function PaymentDetailModal({
                       </span>
                       <button
                         type="button"
-                        onClick={() => copyToClipboard(payment.providerPaymentId!, "pi-id")}
+                        onClick={() => copyToClipboard(payment.providerPaymentId!, "pi-id", "Payment Intent ID")}
                         className="p-1 hover:bg-muted text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
                         title="Copy Payment Intent ID"
                       >

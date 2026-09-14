@@ -1,5 +1,6 @@
 import React from "react";
 import { Download, Search } from "lucide-react";
+import { toast } from "@/components/ui/toast";
 
 export type OrderStatus = "" | "PAID" | "PENDING_PAYMENT" | "CANCELLED";
 
@@ -43,7 +44,7 @@ export const OrdersFilterBar = React.memo(function OrdersFilterBar({
         <button
           type="button"
           onClick={() => {
-            alert("Preparing order export dataset...");
+            toast.info("[ EXPORT INITIATED ] Preparing order telemetry export dataset...");
           }}
           className="inline-flex h-9 items-center justify-center gap-2 border border-border bg-muted/40 hover:bg-muted px-3 text-xs font-bold uppercase tracking-wider text-foreground transition-colors cursor-pointer"
         >

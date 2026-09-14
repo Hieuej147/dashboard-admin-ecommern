@@ -1,5 +1,6 @@
 import React from "react";
 import type { SettingItem } from "../constants/settings-data";
+import { toast } from "@/components/ui/toast";
 
 interface SettingCardProps {
   setting: SettingItem;
@@ -29,6 +30,7 @@ export const SettingCard = React.memo(function SettingCard({
       <div className="mt-4">
         <button
           type="button"
+          onClick={() => toast.info(`[ CONFIG ] ${setting.title}: ${setting.value}`)}
           className="w-full border border-border bg-muted/20 px-3 py-2 text-left text-[11px] font-bold text-foreground hover:bg-muted transition-colors cursor-pointer"
         >
           [ {setting.value} ]

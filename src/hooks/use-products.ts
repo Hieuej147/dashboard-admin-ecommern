@@ -19,6 +19,8 @@ export interface CreateProductInput {
   stockQuantity: number;
   priceAmountMinor: number;
   currency?: string;
+  categorySlug?: string;
+  reorderPoint?: number;
   colors?: string[];
   sizes?: string[];
   images?: Record<string, string>;
@@ -32,6 +34,9 @@ export interface UpdateProductInput {
     stockQuantity?: number;
     priceAmountMinor?: number;
     currency?: string;
+    categorySlug?: string;
+    reorderPoint?: number;
+    status?: string;
     colors?: string[];
     sizes?: string[];
     images?: Record<string, string>;
@@ -167,6 +172,8 @@ export function useCreateProduct() {
         stockQuantity: input.stockQuantity,
         priceAmountMinor: input.priceAmountMinor,
         currency: input.currency ?? "VND",
+        categorySlug: input.categorySlug,
+        reorderPoint: input.reorderPoint,
         colors: input.colors ?? [],
         sizes: input.sizes ?? [],
         images: input.images ?? {},
@@ -191,6 +198,9 @@ export function useUpdateProduct() {
         stockQuantity: data.stockQuantity,
         priceAmountMinor: data.priceAmountMinor,
         currency: data.currency ?? "VND",
+        categorySlug: data.categorySlug,
+        reorderPoint: data.reorderPoint,
+        status: data.status,
         colors: data.colors,
         sizes: data.sizes,
         images: data.images,

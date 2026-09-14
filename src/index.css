@@ -368,3 +368,186 @@
 .dark [data-copilotkit] textarea::placeholder {
   color: #71717a !important;
 }
+
+/* ==========================================================================
+   Clerk Authentication - Field Protocol 0px Brutalism
+   ========================================================================== */
+.cl-rootBox {
+  width: 100%;
+}
+.cl-card {
+  border-radius: 0px !important;
+  border: 1px solid var(--border) !important;
+  background-color: var(--card) !important;
+  color: var(--foreground) !important;
+  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.9) !important;
+  padding: 1.75rem !important;
+}
+.dark .cl-card {
+  box-shadow: 4px 4px 0px 0px rgba(255, 255, 255, 0.15) !important;
+}
+.cl-header {
+  text-align: left !important;
+  margin-bottom: 1.25rem !important;
+  border-bottom: 1px solid var(--border) !important;
+  padding-bottom: 0.75rem !important;
+}
+.cl-headerTitle {
+  font-family: var(--font-mono) !important;
+  font-weight: 700 !important;
+  font-size: 1.125rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  color: var(--foreground) !important;
+}
+.cl-headerSubtitle {
+  font-family: var(--font-mono) !important;
+  font-size: 0.75rem !important;
+  color: var(--muted-foreground) !important;
+  margin-top: 0.25rem !important;
+}
+.cl-socialButtonsBlockButton {
+  border-radius: 0px !important;
+  border: 1px solid var(--border) !important;
+  background-color: var(--muted) !important;
+  color: var(--foreground) !important;
+  font-family: var(--font-mono) !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  font-size: 0.75rem !important;
+  box-shadow: 2px 2px 0px 0px rgba(0, 0, 0, 0.8) !important;
+  height: 2.5rem !important;
+  transition: all 0.15s ease !important;
+}
+.dark .cl-socialButtonsBlockButton {
+  box-shadow: 2px 2px 0px 0px rgba(255, 255, 255, 0.15) !important;
+}
+.cl-socialButtonsBlockButton:hover {
+  background-color: var(--foreground) !important;
+  color: var(--background) !important;
+  border-color: var(--foreground) !important;
+}
+.cl-socialButtonsBlockButtonText {
+  font-family: var(--font-mono) !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  font-size: 0.75rem !important;
+}
+.cl-dividerRow {
+  margin: 1.25rem 0 !important;
+}
+.cl-dividerLine {
+  background-color: var(--border) !important;
+}
+.cl-dividerText {
+  font-family: var(--font-mono) !important;
+  font-size: 0.65rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  color: var(--muted-foreground) !important;
+  background-color: var(--card) !important;
+  padding: 0 0.5rem !important;
+}
+.cl-formFieldLabel {
+  font-family: var(--font-mono) !important;
+  font-size: 0.6875rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  color: var(--foreground) !important;
+  margin-bottom: 0.35rem !important;
+}
+.cl-formFieldInput {
+  border-radius: 0px !important;
+  border: 1px solid var(--border) !important;
+  background-color: var(--background) !important;
+  color: var(--foreground) !important;
+  font-family: var(--font-mono) !important;
+  font-size: 0.8125rem !important;
+  box-shadow: none !important;
+  height: 2.5rem !important;
+  padding: 0 0.75rem !important;
+  transition: border-color 0.15s ease !important;
+}
+.cl-formFieldInput:focus {
+  border-color: var(--foreground) !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+.cl-formButtonPrimary {
+  border-radius: 0px !important;
+  background-color: var(--foreground) !important;
+  color: var(--background) !important;
+  font-family: var(--font-mono) !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  font-size: 0.75rem !important;
+  height: 2.5rem !important;
+  border: 1px solid var(--foreground) !important;
+  box-shadow: 2px 2px 0px 0px rgba(0, 0, 0, 0.9) !important;
+  transition: all 0.15s ease !important;
+  cursor: pointer !important;
+}
+.dark .cl-formButtonPrimary {
+  box-shadow: 2px 2px 0px 0px rgba(255, 255, 255, 0.2) !important;
+}
+.cl-formButtonPrimary:hover {
+  background-color: #ece945 !important;
+  color: #000000 !important;
+  border-color: #ece945 !important;
+}
+.cl-footer {
+  border-top: 1px solid var(--border) !important;
+  margin-top: 1.25rem !important;
+  padding-top: 1rem !important;
+}
+.cl-footerActionText {
+  font-family: var(--font-mono) !important;
+  font-size: 0.75rem !important;
+  color: var(--muted-foreground) !important;
+}
+.cl-footerActionLink {
+  font-family: var(--font-mono) !important;
+  font-weight: 700 !important;
+  font-size: 0.75rem !important;
+  text-decoration: underline !important;
+  color: var(--foreground) !important;
+}
+.cl-footerActionLink:hover {
+  color: #ece945 !important;
+}
+.cl-identityPreview {
+  border-radius: 0px !important;
+  border: 1px solid var(--border) !important;
+  background-color: var(--muted) !important;
+  padding: 0.5rem 0.75rem !important;
+}
+.cl-identityPreviewText {
+  font-family: var(--font-mono) !important;
+  font-size: 0.75rem !important;
+}
+.cl-identityPreviewEditButton {
+  font-family: var(--font-mono) !important;
+  font-size: 0.75rem !important;
+  text-transform: uppercase !important;
+  color: var(--muted-foreground) !important;
+}
+.cl-identityPreviewEditButton:hover {
+  color: var(--foreground) !important;
+}
+.cl-alert {
+  border-radius: 0px !important;
+  border: 1px solid var(--destructive) !important;
+  background-color: rgba(211, 47, 47, 0.1) !important;
+  color: var(--destructive) !important;
+  font-family: var(--font-mono) !important;
+  font-size: 0.75rem !important;
+  padding: 0.5rem 0.75rem !important;
+}
+.cl-formFieldErrorText {
+  font-family: var(--font-mono) !important;
+  font-size: 0.6875rem !important;
+  color: var(--destructive) !important;
+  margin-top: 0.25rem !important;
+}

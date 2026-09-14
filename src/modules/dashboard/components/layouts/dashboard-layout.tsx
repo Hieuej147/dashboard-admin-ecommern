@@ -4,6 +4,7 @@ import {
   ChatGPTThinking,
   AssistantBubble,
   UserBubble,
+  ReasoningBubble,
 } from "@/modules/dashboard/components/ui/ai-components/messages";
 import {
   CustomTextArea,
@@ -28,6 +29,7 @@ const COPILOT_TOGGLE_BUTTON = {
 const COPILOT_MESSAGE_VIEW = {
   assistantMessage: AssistantBubble,
   userMessage: UserBubble,
+  reasoningMessage: ReasoningBubble,
   cursor: () => <ChatGPTThinking />,
   className: "bg-background text-foreground font-mono",
 };

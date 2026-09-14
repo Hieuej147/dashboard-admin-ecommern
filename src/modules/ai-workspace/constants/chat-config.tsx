@@ -2,6 +2,7 @@ import {
   ChatGPTThinking,
   AssistantBubble,
   UserBubble,
+  ReasoningBubble,
 } from "@/modules/dashboard/components/ui/ai-components/messages";
 import {
   CustomTextArea,
@@ -11,6 +12,7 @@ import {
 export const CHAT_MESSAGE_VIEW = {
   assistantMessage: AssistantBubble,
   userMessage: UserBubble,
+  reasoningMessage: ReasoningBubble,
   cursor: () => <ChatGPTThinking />,
   className: "bg-background text-foreground font-mono",
 };

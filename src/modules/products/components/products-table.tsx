@@ -36,6 +36,15 @@ function TableMessage({ children }: { children: ReactNode }) {
 }
 
 function ProductStatusBadge({ status, stock }: { status: string; stock: number }) {
+  if (status === "ARCHIVED") {
+    return (
+      <span className="inline-flex items-center gap-1.5 px-2 py-0.5 text-[10px] font-mono font-bold uppercase border border-border bg-muted/60 text-muted-foreground">
+        <span className="h-1.5 w-1.5 bg-muted-foreground inline-block" />
+        [ ARCHIVED ]
+      </span>
+    );
+  }
+
   if (status === "ACTIVE") {
     return (
       <span className="inline-flex items-center gap-1.5 px-2 py-0.5 text-[10px] font-mono font-bold uppercase border border-emerald-500/40 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
@@ -140,10 +149,13 @@ export const ProductsTable = React.memo(function ProductsTable({
 
                 const isS3Image = imageSrc.includes("9002") || imageSrc.includes("s3") || imageSrc.includes("ecommerce-products");
 
+                const threshold = product.reorderPoint !== undefined ? product.reorderPoint : 20;
                 const derivedStatus =
-                  product.stockQuantity === 0
+                  product.status === "ARCHIVED"
+                    ? "ARCHIVED"
+                    : product.stockQuantity === 0
                     ? "OUT_OF_STOCK"
-                    : product.stockQuantity <= 10
+                    : product.stockQuantity <= threshold
                     ? "LOW_STOCK"
                     : "ACTIVE";
 
@@ -186,9 +198,16 @@ export const ProductsTable = React.memo(function ProductsTable({
                           )}
                         </div>
                         <div className="min-w-0">
-                          <p className="font-bold text-foreground truncate max-w-[280px]">
-                            {product.name}
-                          </p>
+                          <div className="flex items-center gap-1.5">
+                            <p className="font-bold text-foreground truncate max-w-[220px]">
+                              {product.name}
+                            </p>
+                            {product.categorySlug && (
+                              <span className="text-[9px] font-bold uppercase tracking-wider px-1 py-0.5 bg-muted border border-border text-muted-foreground shrink-0">
+                                {product.categorySlug}
+                              </span>
+                            )}
+                          </div>
                           <p className="text-[11px] text-muted-foreground truncate max-w-[280px]">
                             {product.description || "No description provided"}
                           </p>

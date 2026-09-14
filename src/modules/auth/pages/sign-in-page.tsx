@@ -3,7 +3,7 @@ import { SignInForm } from "../components/sign-in-form";
 
 export default function SignInPage() {
   return (
-    <AuthLayout>
+    <AuthLayout mode="sign-in">
       <SignInForm />
     </AuthLayout>
   );

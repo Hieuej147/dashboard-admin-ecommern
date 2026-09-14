@@ -1,10 +1,12 @@
 import {
   CopilotChatAssistantMessage,
   CopilotChatUserMessage,
+  CopilotChatReasoningMessage,
 } from "@copilotkit/react-core/v2";
 import type {
   CopilotChatAssistantMessageProps,
   CopilotChatUserMessageProps,
+  CopilotChatReasoningMessageProps,
 } from "@copilotkit/react-core/v2";
 
 const AssistantBubbleImpl = (props: CopilotChatAssistantMessageProps) => (
@@ -45,11 +47,29 @@ const UserBubbleImpl = (props: CopilotChatUserMessageProps) => (
 
 export const UserBubble = Object.assign(UserBubbleImpl, CopilotChatUserMessage);
 
+const ReasoningBubbleImpl = (props: CopilotChatReasoningMessageProps) => (
+  <div className="border border-border/80 border-l-2 border-l-[#ece945] bg-muted/20 text-foreground p-3 font-mono text-xs my-2 shadow-hard-sm">
+    <div className="flex items-center gap-1.5 pb-1.5 mb-2 border-b border-border/60 text-[10px] uppercase font-bold text-muted-foreground">
+      <span className="h-1.5 w-1.5 bg-[#ece945] shrink-0 shadow-[0_0_4px_rgba(236,233,69,0.8)]" />
+      <span>[ AI REASONING STREAM ]</span>
+    </div>
+    <CopilotChatReasoningMessage
+      {...props}
+      className="[&>div]:!bg-transparent [&>div]:!p-0 [&>div]:!border-0 text-foreground dark:text-zinc-200 font-mono text-xs leading-relaxed"
+    />
+  </div>
+);
+
+export const ReasoningBubble = Object.assign(
+  ReasoningBubbleImpl,
+  CopilotChatReasoningMessage,
+);
+
 export const ChatGPTThinking = () => (
-  <div className="flex items-center gap-2.5 p-3 font-mono text-xs text-foreground border border-border dark:border-[#ece945]/40 bg-card dark:bg-[#13161a] shadow-hard-sm dark:shadow-[2px_2px_0px_0px_rgba(236,233,69,0.2)] my-2.5">
-    <span className="h-2 w-2 bg-[#ece945] shadow-[0_0_8px_rgba(236,233,69,0.8)] animate-ping shrink-0" />
-    <span className="font-bold text-[11px] tracking-wider uppercase text-foreground dark:text-[#ece945]">
-      [ COPILOT ANALYZING COMMAND & CONNECTING SERVICES... ]
+  <div className="inline-flex items-center gap-2 px-3 py-1.5 font-mono text-[11px] text-foreground border border-border dark:border-[#ece945]/40 bg-card dark:bg-[#13161a] shadow-hard-sm my-1">
+    <span className="h-2 w-2 bg-[#ece945] shadow-[0_0_6px_rgba(236,233,69,0.8)] animate-pulse shrink-0" />
+    <span className="font-bold tracking-wider uppercase text-foreground dark:text-[#ece945]">
+      [ PROCESSING DIRECTIVE... ]
     </span>
   </div>
 );

@@ -10,6 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import type { AiThread } from "../../types/ai-workspace.types";
+import { toast } from "@/components/ui/toast";
 
 interface RenameThreadDialogProps {
   thread: AiThread | null;
@@ -39,9 +40,11 @@ export function RenameThreadDialog({
     if (!thread || !title.trim()) return;
     try {
       await onRename(thread.id, title.trim());
+      toast.success("[ THREAD UPDATED ] Conversation renamed successfully");
       onOpenChange(false);
     } catch (err) {
       console.error("Failed to rename thread:", err);
+      toast.error(`[ ACTION FAILED ] ${err instanceof Error ? err.message : "Could not rename thread"}`);
     }
   };
 
@@ -114,9 +117,11 @@ export function ArchiveThreadDialog({
     if (!thread) return;
     try {
       await onArchive(thread.id);
+      toast.success("[ THREAD ARCHIVED ] Conversation moved to archive");
       onOpenChange(false);
     } catch (err) {
       console.error("Failed to archive thread:", err);
+      toast.error(`[ ACTION FAILED ] ${err instanceof Error ? err.message : "Could not archive thread"}`);
     }
   };
 

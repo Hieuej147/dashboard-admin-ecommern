@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { useDeleteProduct } from "@/hooks/use-products";
 import type { ProductDto } from "@/hooks/query-key/query-key";
 import { AlertTriangle, Loader2 } from "lucide-react";
+import { toast } from "@/components/ui/toast";
 
 interface DeleteProductDialogProps {
   open: boolean;
@@ -34,12 +35,21 @@ export function DeleteProductDialog({
     setErrorMsg("");
     try {
       await deleteMutation.mutateAsync(product.id);
+      toast.create({
+        title: "PRODUCT ARCHIVED",
+        description: `Product "${product.name}" has been moved to archive.`,
+        type: "success",
+      });
       onOpenChange(false);
       onSuccess?.();
     } catch (err: any) {
-      setErrorMsg(
-        err?.response?.data?.message || err?.message || "Failed to delete product.",
-      );
+      const msg = err?.response?.data?.message || err?.message || "Failed to delete product.";
+      setErrorMsg(msg);
+      toast.create({
+        title: "ACTION FAILED",
+        description: msg,
+        type: "error",
+      });
     }
   };
 

@@ -3,12 +3,23 @@ import { useHealth } from "@/hooks/use-health";
 import { useUser } from "@clerk/clerk-react";
 import { ENV } from "@/config/env";
 import { Activity, RefreshCw, Server, ShieldCheck, Database } from "lucide-react";
+import { toast } from "@/components/ui/toast";
 
 export const SystemDiagnosticsCard = React.memo(function SystemDiagnosticsCard() {
   const { data: health, isLoading, isError, isFetching, refetch } = useHealth();
   const { user, isLoaded } = useUser();
 
   const isHealthy = !isLoading && !isError && health?.status === "ok";
+
+  const handleProbe = async () => {
+    toast.info("[ PROBE INITIATED ] Querying API Gateway & telemetry latency...");
+    const res = await refetch();
+    if (res.isSuccess) {
+      toast.success(`[ TELEMETRY SYNC ] Gateway operational (${res.data?.latencyMs ?? 0} ms)`);
+    } else {
+      toast.error("[ TELEMETRY ERROR ] Gateway probe failed or unresponsive");
+    }
+  };
 
   return (
     <div className="border border-border bg-card shadow-hard-sm font-mono">
@@ -30,7 +41,7 @@ export const SystemDiagnosticsCard = React.memo(function SystemDiagnosticsCard()
 
         <button
           type="button"
-          onClick={() => refetch()}
+          onClick={handleProbe}
           disabled={isFetching}
           className="inline-flex items-center gap-1.5 border border-border bg-card px-3 py-1 text-xs font-bold uppercase tracking-wider text-foreground hover:bg-muted disabled:opacity-40 transition-colors shadow-hard-sm cursor-pointer"
         >
@@ -91,11 +102,11 @@ export const SystemDiagnosticsCard = React.memo(function SystemDiagnosticsCard()
 
           <div className="space-y-1 text-xs">
             <p className="text-[11px] text-foreground font-bold break-all bg-muted/40 p-1.5 border border-border">
-              http://localhost:9002/products
+              http://localhost:9002/ecommerce-products
             </p>
             <div className="flex items-center justify-between pt-1 text-[10px] text-muted-foreground">
               <span>Protocol: Binary Presigned URL PUT</span>
-              <span>Bucket: products</span>
+              <span>Bucket: ecommerce-products</span>
             </div>
           </div>
         </div>

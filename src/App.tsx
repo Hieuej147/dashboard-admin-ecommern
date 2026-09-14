@@ -10,10 +10,12 @@ import { AiWorkspacePage } from "@/modules/ai-workspace";
 import DashboardLayout from "@/modules/dashboard/components/layouts/dashboard-layout";
 import { SignInPage, SignUpPage, AdminGuard, AccessDeniedPage } from "./modules/auth";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { Toaster } from "@/components/ui/toast";
 
 function App() {
   return (
     <TooltipProvider>
+      <Toaster />
       <Routes>
         {/* Auth Routes */}
         <Route path="/sign-in/*" element={<SignInPage />} />

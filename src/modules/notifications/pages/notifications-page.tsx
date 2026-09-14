@@ -12,6 +12,7 @@ import {
   NotificationsList,
   type FilterTab,
 } from "../";
+import { toast } from "@/components/ui/toast";
 
 export default function NotificationsPage() {
   const navigate = useNavigate();
@@ -62,11 +63,22 @@ export default function NotificationsPage() {
   );
 
   const handleMarkAllRead = useCallback(() => {
-    markAllRead.mutate();
+    markAllRead.mutate(undefined, {
+      onSuccess: () => {
+        toast.success("[ NOTIFICATIONS CLEARED ] All event alerts marked as read");
+      },
+      onError: (err) => {
+        toast.error(`[ ACTION FAILED ] ${err instanceof Error ? err.message : "Failed to mark notifications read"}`);
+      },
+    });
   }, [markAllRead]);
 
   const handleRefetch = useCallback(() => {
-    void refetch();
+    void refetch().then((res) => {
+      if (res.isSuccess) {
+        toast.info("[ INBOX REFRESHED ] Notification event stream updated");
+      }
+    });
   }, [refetch]);
 
   return (
