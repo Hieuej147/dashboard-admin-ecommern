@@ -82,44 +82,44 @@ export function ThreadSelectorDropdown({
         {/* Trigger Button using DropdownMenuTrigger */}
         <DropdownMenuTrigger
           className={cn(
-            "inline-flex items-center justify-between gap-2 rounded-lg border border-slate-200 bg-white px-2.5 h-8 text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 shadow-xs max-w-[220px] sm:max-w-[280px] outline-none transition select-none cursor-pointer focus-visible:ring-2 focus-visible:ring-blue-500/20 data-popup-open:border-blue-400",
+            "inline-flex items-center justify-between gap-2 rounded-none border border-border bg-card px-2.5 h-8 text-xs font-bold text-foreground hover:bg-muted shadow-hard-sm max-w-[220px] sm:max-w-[280px] outline-none transition select-none cursor-pointer font-mono",
             triggerClassName
           )}
         >
           <span className="flex items-center gap-1.5 truncate">
-            <MessageSquare className="h-3.5 w-3.5 text-blue-600 shrink-0" />
+            <MessageSquare className="h-3.5 w-3.5 text-foreground shrink-0" />
             <span className="truncate">
               {activeThread ? activeThread.name : "New Thread"}
             </span>
           </span>
-          <ChevronDown className="h-3 w-3 text-slate-400 shrink-0 ml-1 transition-transform duration-200 [[data-popup-open]>&]:rotate-180" />
+          <ChevronDown className="h-3 w-3 text-muted-foreground shrink-0 ml-1 transition-transform duration-200 [[data-popup-open]>&]:rotate-180" />
         </DropdownMenuTrigger>
 
         {/* Dropdown Menu Content */}
         <DropdownMenuContent
           align={align}
           sideOffset={6}
-          className="w-80 p-2 rounded-xl shadow-xl border-slate-200 bg-white z-[1300] ring-1 ring-black/5"
+          className="w-80 p-2 rounded-none shadow-hard-md border border-border bg-card text-foreground z-[1300] font-mono"
         >
           {/* Header with Title & Quick Create */}
           <DropdownMenuGroup>
-            <div className="flex items-center justify-between px-2 py-1 pb-2 border-b border-slate-100">
-              <DropdownMenuLabel className="p-0 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
-                Threads ({threads.length})
+            <div className="flex items-center justify-between px-2 py-1 pb-2 border-b border-border">
+              <DropdownMenuLabel className="p-0 text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                THREADS ({threads.length})
               </DropdownMenuLabel>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => onCreateThread()}
                 disabled={isCreating}
-                className="h-6 px-2 text-[11px] text-blue-600 hover:text-blue-700 hover:bg-blue-50 font-medium gap-1"
+                className="h-6 px-2 text-[11px] text-foreground hover:bg-muted font-bold gap-1 rounded-none border border-border bg-card shadow-hard-sm"
               >
                 {isCreating ? (
                   <Loader2 className="h-3 w-3 animate-spin" />
                 ) : (
-                  <Plus className="h-3 w-3" />
+                  <Plus className="h-3 w-3 text-[#ece945]" />
                 )}
-                Create New
+                NEW
               </Button>
             </div>
           </DropdownMenuGroup>
@@ -127,7 +127,7 @@ export function ThreadSelectorDropdown({
           {/* Quick Search if more than 4 threads */}
           {threads.length > 4 && (
             <div className="relative mt-2 mb-1 px-1">
-              <Search className="absolute left-3 top-2.5 h-3 w-3 text-slate-400 pointer-events-none" />
+              <Search className="absolute left-3 top-2.5 h-3 w-3 text-muted-foreground pointer-events-none" />
               <input
                 type="text"
                 placeholder="Search threads..."
@@ -135,23 +135,23 @@ export function ThreadSelectorDropdown({
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onClick={(e) => e.stopPropagation()}
                 onKeyDown={(e) => e.stopPropagation()}
-                className="w-full rounded-md border border-slate-200 bg-slate-50/60 pl-8 pr-2 py-1 text-xs text-slate-800 placeholder-slate-400 outline-none focus:border-blue-400 focus:bg-white transition"
+                className="w-full rounded-none border border-border bg-background pl-8 pr-2 py-1 text-xs text-foreground placeholder:text-muted-foreground outline-none focus:border-foreground transition"
               />
             </div>
           )}
 
-          <DropdownMenuSeparator className="my-1" />
+          <DropdownMenuSeparator className="my-1 border-border" />
 
           {/* Scrollable Thread List */}
           <div className="max-h-64 overflow-y-auto py-1 space-y-0.5">
             {isLoading ? (
-              <div className="flex items-center justify-center py-6 text-xs text-slate-400 gap-2">
-                <Loader2 className="h-3.5 w-3.5 animate-spin text-blue-600" />
+              <div className="flex items-center justify-center py-6 text-xs text-muted-foreground gap-2">
+                <Loader2 className="h-3.5 w-3.5 animate-spin text-foreground" />
                 Loading threads...
               </div>
             ) : filteredThreads.length === 0 ? (
-              <div className="py-6 text-center text-xs text-slate-400">
-                {searchQuery ? "No matching threads found." : "No threads yet."}
+              <div className="py-6 text-center text-xs text-muted-foreground">
+                {searchQuery ? "[ NO THREADS FOUND ]" : "[ NO ACTIVE THREADS ]"}
               </div>
             ) : (
               <DropdownMenuGroup>
@@ -161,23 +161,23 @@ export function ThreadSelectorDropdown({
                     <DropdownMenuItem
                       key={t.id}
                       onClick={() => onSelectThread(t.id)}
-                      className={`group flex items-center justify-between rounded-lg px-2 py-1.5 text-xs transition cursor-pointer ${
+                      className={`group flex items-center justify-between rounded-none px-2 py-1.5 text-xs transition cursor-pointer ${
                         isActive
-                          ? "bg-blue-50/90 text-blue-900 font-medium shadow-2xs focus:bg-blue-50 focus:text-blue-900"
-                          : "text-slate-700 hover:bg-slate-100/80 focus:bg-slate-100/80"
+                          ? "bg-muted text-foreground font-bold border-l-2 border-l-[#ece945]"
+                          : "text-muted-foreground hover:text-foreground hover:bg-muted/60"
                       }`}
                     >
                       <div className="flex items-center gap-2 min-w-0 pr-2">
                         {isActive ? (
-                          <Check className="h-3.5 w-3.5 text-blue-600 shrink-0" />
+                          <Check className="h-3.5 w-3.5 text-[#ece945] shrink-0" />
                         ) : (
-                          <MessageSquare className="h-3.5 w-3.5 text-slate-400 shrink-0" />
+                          <MessageSquare className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
                         )}
                         <div className="min-w-0">
-                          <p className="truncate text-xs leading-tight font-medium">
+                          <p className="truncate text-xs leading-tight font-bold text-foreground">
                             {t.name}
                           </p>
-                          <p className="text-[10px] text-slate-400 mt-0.5">
+                          <p className="text-[10px] text-muted-foreground mt-0.5">
                             {formatDate(t.updatedAt)}
                           </p>
                         </div>
@@ -195,8 +195,8 @@ export function ThreadSelectorDropdown({
                             e.stopPropagation();
                             setThreadToRename(t);
                           }}
-                          title="Rename"
-                          className="rounded p-1 text-slate-400 hover:bg-white hover:text-slate-700 hover:shadow-xs transition"
+                          title="Rename thread"
+                          className="rounded-none p-1 text-muted-foreground hover:bg-card hover:text-foreground border border-transparent hover:border-border transition"
                         >
                           <Pencil className="h-3 w-3" />
                         </button>
@@ -206,8 +206,8 @@ export function ThreadSelectorDropdown({
                             e.stopPropagation();
                             setThreadToArchive(t);
                           }}
-                          title="Archive"
-                          className="rounded p-1 text-slate-400 hover:bg-rose-50 hover:text-rose-600 transition"
+                          title="Archive thread"
+                          className="rounded-none p-1 text-muted-foreground hover:bg-rose-500/10 hover:text-rose-500 border border-transparent hover:border-rose-500/30 transition"
                         >
                           <Archive className="h-3 w-3" />
                         </button>

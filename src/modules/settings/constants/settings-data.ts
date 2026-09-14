@@ -1,4 +1,4 @@
-import { Bell, Bot, KeyRound, Palette, type LucideIcon } from "lucide-react";
+import { Bell, Bot, KeyRound, Palette, Database, type LucideIcon } from "lucide-react";
 
 export interface SettingItem {
   title: string;
@@ -9,27 +9,33 @@ export interface SettingItem {
 
 export const SETTINGS_ITEMS: SettingItem[] = [
   {
-    title: "Appearance",
-    description: "Tune the workspace theme and density.",
+    title: "Display & Appearance",
+    description: "Configure light/dark themes, tactical contrast, and UI display density.",
     icon: Palette,
-    value: "System default",
+    value: "System Default Theme",
   },
   {
-    title: "Notifications",
-    description: "Choose which commerce signals reach you.",
+    title: "Notifications & Alerts",
+    description: "Manage event stream triggers from orders, inventory levels, and settlement.",
     icon: Bell,
-    value: "All activity",
+    value: "All Active Alerts Enabled",
   },
   {
-    title: "AI assistant",
-    description: "Configure the way Commerce Copilot helps.",
+    title: "Executive AI Copilot",
+    description: "Configure language model parameters, LangGraph tools, and AI canvas.",
     icon: Bot,
-    value: "Connected",
+    value: "Online & Operational",
   },
   {
-    title: "API access",
-    description: "Gateway connection and authentication status.",
+    title: "MinIO S3 Object Storage",
+    description: "Product media storage cluster operating via binary presigned URLs.",
+    icon: Database,
+    value: "Port 9002 - Bucket: products",
+  },
+  {
+    title: "API Access & Gateway",
+    description: "Reverse proxy routing and Clerk JWT authorization gateway.",
     icon: KeyRound,
-    value: "Ready for integration",
+    value: "Port 8080 - Validated Session",
   },
 ];

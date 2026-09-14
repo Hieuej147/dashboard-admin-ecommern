@@ -1,13 +1,12 @@
 import type { LucideIcon } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 
 interface MicroserviceCardProps {
   title: string;
   badge: string;
   description: string;
   icon: LucideIcon;
-  iconColor: string;
-  iconBg: string;
+  iconColor?: string;
+  iconBg?: string;
 }
 
 export function MicroserviceCard({
@@ -15,26 +14,19 @@ export function MicroserviceCard({
   badge,
   description,
   icon: Icon,
-  iconColor,
-  iconBg,
 }: MicroserviceCardProps) {
   return (
-    <div className="rounded-xl border border-slate-200/80 bg-white p-4 shadow-xs">
+    <div className="border border-border bg-card p-4 shadow-hard-sm font-mono rounded-none">
       <div className="flex items-center gap-2 mb-2">
-        <span
-          className={`flex h-7 w-7 items-center justify-center rounded-lg ${iconBg} ${iconColor}`}
-        >
-          <Icon className="h-4 w-4" />
+        <span className="flex h-7 w-7 items-center justify-center border border-border bg-muted/40 text-foreground">
+          <Icon className="h-3.5 w-3.5 text-[#ece945]" />
         </span>
-        <h3 className="text-xs font-semibold text-slate-800">{title}</h3>
-        <Badge
-          variant="outline"
-          className="ml-auto text-[10px] bg-emerald-50 text-emerald-700 border-emerald-200"
-        >
-          {badge}
-        </Badge>
+        <h3 className="text-xs font-bold uppercase tracking-wider text-foreground">{title}</h3>
+        <span className="ml-auto border border-emerald-500/40 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold px-1.5 py-0.5 rounded-none uppercase">
+          [ {badge} ]
+        </span>
       </div>
-      <p className="text-xs text-slate-500 leading-relaxed">{description}</p>
+      <p className="text-xs text-muted-foreground leading-relaxed mt-1">{description}</p>
     </div>
   );
 }

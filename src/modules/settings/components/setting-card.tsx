@@ -1,11 +1,4 @@
 import React from "react";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-} from "@/components/ui/card";
 import type { SettingItem } from "../constants/settings-data";
 
 interface SettingCardProps {
@@ -18,22 +11,29 @@ export const SettingCard = React.memo(function SettingCard({
   const Icon = setting.icon;
 
   return (
-    <Card className="transition hover:-translate-y-0.5 hover:shadow-md">
-      <CardHeader>
-        <span className="mb-2 flex h-9 w-9 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600">
-          <Icon className="h-4 w-4" />
-        </span>
-        <CardTitle className="text-base">{setting.title}</CardTitle>
-        <CardDescription>{setting.description}</CardDescription>
-      </CardHeader>
-      <CardContent>
+    <div className="border border-border bg-card p-4 shadow-hard-sm font-mono flex flex-col justify-between transition-colors">
+      <div>
+        <div className="flex items-center gap-2.5">
+          <div className="flex h-7 w-7 items-center justify-center border border-border bg-muted/40 text-foreground">
+            <Icon className="h-3.5 w-3.5" />
+          </div>
+          <h4 className="text-xs font-bold uppercase tracking-wider text-foreground">
+            {setting.title}
+          </h4>
+        </div>
+        <p className="text-[11px] text-muted-foreground leading-relaxed mt-2">
+          {setting.description}
+        </p>
+      </div>
+
+      <div className="mt-4">
         <button
           type="button"
-          className="w-full rounded-lg border border-slate-200 px-3 py-2 text-left text-xs font-medium text-slate-600 hover:bg-slate-50 transition"
+          className="w-full border border-border bg-muted/20 px-3 py-2 text-left text-[11px] font-bold text-foreground hover:bg-muted transition-colors cursor-pointer"
         >
-          {setting.value}
+          [ {setting.value} ]
         </button>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 });

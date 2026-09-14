@@ -1,6 +1,10 @@
 import { Header } from "@/modules/dashboard/components/ui/common/header";
 import { CopilotSidebar } from "@copilotkit/react-core/v2";
-import { ChatGPTThinking } from "@/modules/dashboard/components/ui/ai-components/messages";
+import {
+  ChatGPTThinking,
+  AssistantBubble,
+  UserBubble,
+} from "@/modules/dashboard/components/ui/ai-components/messages";
 import {
   CustomTextArea,
   CustomSendButton,
@@ -16,36 +20,38 @@ import { useAppSelector } from "@/lib/store/store";
 type ChildrenProps = { children: ReactNode };
 
 const COPILOT_TOGGLE_BUTTON = {
-  openIcon: <Sparkles className="w-5 h-5 text-white" />,
+  openIcon: <Sparkles className="w-5 h-5 text-[#ece945]" />,
   className:
-    "!bg-blue-600 !shadow-lg !shadow-blue-500/20 hover:!scale-105 transition-transform !absolute !bottom-6 !right-6",
+    "!bg-card !text-foreground hover:!bg-muted !border !border-border !rounded-none !shadow-hard-md hover:!scale-105 transition-transform !absolute !bottom-6 !right-6 cursor-pointer",
 };
 
 const COPILOT_MESSAGE_VIEW = {
+  assistantMessage: AssistantBubble,
+  userMessage: UserBubble,
   cursor: () => <ChatGPTThinking />,
-  className: "bg-white",
+  className: "bg-background text-foreground font-mono",
 };
 
 const COPILOT_SUGGESTION_VIEW = {
   suggestion:
-    "text-sm px-3 py-1.5 rounded-full border border-slate-200 text-slate-600 hover:bg-slate-50 hover:border-slate-300 transition-colors",
+    "text-xs px-2.5 py-1 rounded-none border border-border bg-card text-foreground hover:bg-muted hover:border-[#ece945] transition-colors font-mono font-bold shadow-hard-sm",
 };
 
 const COPILOT_INPUT = {
   textArea: CustomTextArea,
   sendButton: CustomSendButton,
   className:
-    "border-slate-200 focus-within:border-blue-400 rounded-2xl shadow-sm bg-white",
+    "border-t border-border focus-within:border-[#ece945] rounded-none shadow-none bg-card p-1.5",
 };
 
 const COPILOT_LABELS = {
-  modalHeaderTitle: "AI Assistant",
-  chatInputPlaceholder: "Ask about sales, orders, products...",
+  modalHeaderTitle: "Executive AI Copilot",
+  chatInputPlaceholder: "Ask about revenue, stock, orders...",
 };
 
 const COPILOT_HEADER = {
   closeButton:
-    "!text-slate-500 hover:!text-slate-800 hover:!bg-slate-100 !rounded-full !p-1.5 transition",
+    "!text-muted-foreground hover:!text-foreground hover:!bg-muted !rounded-none !p-1.5 transition",
   children: CopilotSidebarHeader,
 };
 
@@ -73,10 +79,10 @@ export default function DashboardLayout({ children }: ChildrenProps) {
   }, [isAiWorkspace]);
 
   return (
-    <div className="flex h-screen overflow-hidden bg-slate-50">
+    <div className="flex h-screen overflow-hidden bg-background text-foreground tactical-grid">
       {!isAiWorkspace && (
         <CopilotSidebar
-          defaultOpen={true}
+          defaultOpen={false}
           threadId={activeThreadId ?? undefined}
           toggleButton={COPILOT_TOGGLE_BUTTON}
           width={440}
@@ -84,13 +90,13 @@ export default function DashboardLayout({ children }: ChildrenProps) {
           messageView={COPILOT_MESSAGE_VIEW}
           suggestionView={COPILOT_SUGGESTION_VIEW}
           input={COPILOT_INPUT}
-          scrollView="bg-slate-50/50 px-4"
-          disclaimer="text-xs text-slate-400 text-center py-2"
+          scrollView="bg-background px-3 py-2 flex-1 overflow-y-auto font-mono"
+          disclaimer="text-[10px] text-muted-foreground text-center py-1.5 font-mono uppercase tracking-wider"
           labels={COPILOT_LABELS}
         />
       )}
       <Sidebar />
-      <div className="relative flex h-screen min-w-0 flex-1 flex-col overflow-hidden">
+      <div className="relative flex h-screen min-w-0 flex-1 flex-col overflow-hidden bg-background/90">
         <div className="relative z-0 flex h-full flex-1 flex-col">
           <Header />
           <main

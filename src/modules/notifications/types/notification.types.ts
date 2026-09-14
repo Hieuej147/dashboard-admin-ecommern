@@ -6,9 +6,9 @@ export interface TabConfig {
 }
 
 export const NOTIFICATION_TABS: TabConfig[] = [
-  { id: "all", label: "All" },
-  { id: "unread", label: "Unread" },
-  { id: "orders", label: "Orders" },
-  { id: "stock", label: "Stock & Inventory" },
-  { id: "payments", label: "Payments" },
+  { id: "all", label: "ALL" },
+  { id: "unread", label: "UNREAD" },
+  { id: "orders", label: "ORDERS" },
+  { id: "stock", label: "INVENTORY" },
+  { id: "payments", label: "PAYMENTS" },
 ];

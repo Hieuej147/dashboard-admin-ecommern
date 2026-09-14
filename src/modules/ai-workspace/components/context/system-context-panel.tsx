@@ -9,62 +9,54 @@ import { MicroserviceCard } from "./microservice-card";
 
 export function SystemContextPanel() {
   return (
-    <div className="flex flex-col gap-5 animate-in fade-in duration-300">
-      <div>
-        <h2 className="text-sm font-semibold text-slate-800">
-          Microservices Ecosystem & AI Tools
+    <div className="flex flex-col gap-5 font-mono animate-in fade-in duration-300">
+      <div className="border-b border-border pb-3">
+        <h2 className="text-sm font-bold uppercase tracking-wider text-foreground">
+          MICROSERVICES ECOSYSTEM & TELEMETRY
         </h2>
-        <p className="text-xs text-slate-500 mt-0.5">
-          Copilot assistant securely queries microservices via the API Gateway with role-based access control.
+        <p className="text-xs text-muted-foreground mt-0.5">
+          Copilot securely queries cluster services via API Gateway with role-based access control.
         </p>
       </div>
 
       <div className="grid gap-3.5 sm:grid-cols-2">
         <MicroserviceCard
           title="Catalog Service"
-          badge="gRPC Live"
-          description="Manages product items, variants, stock counts, categories, brands, and active promotional pricing."
+          badge="gRPC Online"
+          description="Product catalog, SKU variant management, inventory quantities, category trees, and unit pricing."
           icon={Package}
-          iconBg="bg-blue-50"
-          iconColor="text-blue-600"
         />
 
         <MicroserviceCard
           title="Order Service"
-          badge="gRPC Live"
-          description="Manages order lifecycles (PENDING_PAYMENT, PAID, DELIVERING, COMPLETED, CANCELLED) and revenue metrics."
+          badge="gRPC Online"
+          description="Order lifecycle fulfillment state machine (Pending, Paid, Dispatched, Completed, Cancelled) and revenue metrics."
           icon={ShoppingCart}
-          iconBg="bg-indigo-50"
-          iconColor="text-indigo-600"
         />
 
         <MicroserviceCard
           title="Customer Service"
-          badge="gRPC Live"
-          description="Customer profiles, account roles, order histories, shipping addresses, and contact information."
+          badge="gRPC Online"
+          description="Customer accounts, user roles, order history, shipping addresses, and Clerk identity records."
           icon={Users}
-          iconBg="bg-amber-50"
-          iconColor="text-amber-600"
         />
 
         <MicroserviceCard
-          title="A2UI Protocol Engine"
-          badge="Active Portal"
-          description="Dynamic schema transforming agent analytics into generative UI surfaces (Recharts, grid tables, action buttons) mounted to the Canvas."
+          title="A2UI Protocol"
+          badge="Dynamic Surface"
+          description="Transforms analytical telemetry into interactive UI artifacts (Recharts, data grids, action triggers) on the Canvas."
           icon={Layers}
-          iconBg="bg-purple-50"
-          iconColor="text-purple-600"
         />
       </div>
 
-      <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+      <div className="border border-border bg-card p-4 shadow-hard-sm">
         <div className="flex items-start gap-2.5">
-          <HelpCircle className="h-4 w-4 text-slate-500 shrink-0 mt-0.5" />
-          <div className="text-xs text-slate-600 space-y-1">
-            <p className="font-medium text-slate-800">Safe Operations Policy</p>
+          <HelpCircle className="h-4 w-4 text-[#ece945] shrink-0 mt-0.5" />
+          <div className="text-xs text-muted-foreground space-y-1">
+            <p className="font-bold text-foreground uppercase tracking-wider">[ SAFETY OPERATIONAL POLICY ]</p>
             <p>
-              All analytical queries, chart renderings, and summaries execute in safe read-only mode.
-              For batch price modifications or inventory updates, Copilot prompts for human administrator confirmation before executing requests via API Gateway.
+              All analytics queries, chart renderings, and summary reports run in strict read-only mode.
+              For bulk price modifications or inventory reallocations, Copilot requires explicit admin approval before executing commands via the API Gateway.
             </p>
           </div>
         </div>

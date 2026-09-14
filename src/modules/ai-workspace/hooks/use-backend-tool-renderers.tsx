@@ -26,19 +26,19 @@ export function useBackendToolRenderers() {
     render: ({ status, result }) => {
       if (status === "inProgress" || status === "executing") {
         return (
-          <div className="my-2 flex items-center gap-2.5 rounded-xl border border-blue-200/80 bg-blue-50/60 p-2.5 text-xs text-blue-900 shadow-2xs">
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-100 text-blue-600 shrink-0">
-              <BarChart3 className="h-4 w-4 animate-pulse" />
+          <div className="my-2 flex items-center gap-2.5 rounded-none border border-border dark:border-white/10 bg-card dark:bg-[#13161a] p-2.5 text-xs text-foreground dark:text-zinc-200 shadow-hard-sm font-mono">
+            <div className="flex h-7 w-7 items-center justify-center border border-border dark:border-white/10 bg-muted/40 dark:bg-[#181b20] text-foreground shrink-0">
+              <BarChart3 className="h-4 w-4 text-[#ece945] animate-pulse" />
             </div>
             <div className="flex-1 min-w-0">
-              <span className="font-semibold text-blue-900">
-                Aggregating business metrics...
+              <span className="font-bold text-foreground dark:text-zinc-100">
+                Synthesizing commercial telemetry...
               </span>
-              <p className="text-[10px] text-blue-700/80 mt-0.5 truncate">
-                Querying data from Payments, Orders & Catalog
+              <p className="text-[10px] text-muted-foreground mt-0.5 truncate">
+                Querying settlements, order records, and catalog thresholds
               </p>
             </div>
-            <Loader2 className="h-3.5 w-3.5 animate-spin text-blue-600 shrink-0" />
+            <Loader2 className="h-3.5 w-3.5 animate-spin text-foreground shrink-0" />
           </div>
         );
       }
@@ -54,32 +54,32 @@ export function useBackendToolRenderers() {
       const summary = data?.summary;
 
       return (
-        <div className="my-2 rounded-xl border border-emerald-200/90 bg-emerald-50/50 p-2.5 text-xs text-emerald-950 shadow-2xs">
+        <div className="my-2 rounded-none border border-border dark:border-white/10 bg-card dark:bg-[#13161a] p-2.5 text-xs text-foreground dark:text-zinc-200 shadow-hard-sm font-mono">
           <div className="flex items-center justify-between">
-            <span className="flex items-center gap-1.5 font-semibold text-emerald-900">
-              <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
-              Business metrics loaded
+            <span className="flex items-center gap-1.5 font-bold text-foreground dark:text-zinc-100">
+              <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
+              Commercial Metrics Telemetry Loaded
             </span>
             <Badge
               variant="outline"
-              className="border-emerald-300/80 text-emerald-700 bg-white text-[10px]"
+              className="border-border dark:border-white/10 text-foreground dark:text-zinc-200 bg-muted/40 dark:bg-[#181b20] text-[10px] rounded-none font-bold"
             >
-              Overview Metrics
+              [ OVERVIEW ]
             </Badge>
           </div>
           {summary && (
-            <div className="mt-2 grid grid-cols-2 gap-2 text-[11px] pt-1.5 border-t border-emerald-200/60">
+            <div className="mt-2 grid grid-cols-2 gap-2 text-[11px] pt-1.5 border-t border-border dark:border-white/10">
               <div>
-                <span className="text-slate-500">Revenue: </span>
-                <span className="font-semibold text-slate-900">
-                  {new Intl.NumberFormat("vi-VN").format(summary.totalRevenue || 0)}{" "}
+                <span className="text-muted-foreground">Revenue: </span>
+                <span className="font-bold text-foreground dark:text-[#ece945]">
+                  {new Intl.NumberFormat("en-US").format(summary.totalRevenue || 0)}{" "}
                   {summary.currency || "VND"}
                 </span>
               </div>
               <div>
-                <span className="text-slate-500">Orders: </span>
-                <span className="font-semibold text-slate-900">
-                  {summary.totalOrders || 0} orders
+                <span className="text-muted-foreground">Orders: </span>
+                <span className="font-bold text-foreground dark:text-zinc-100">
+                  {summary.totalOrders || 0} units
                 </span>
               </div>
             </div>
@@ -101,21 +101,21 @@ export function useBackendToolRenderers() {
     render: ({ status, parameters, result }) => {
       if (status === "inProgress" || status === "executing") {
         return (
-          <div className="my-2 flex items-center gap-2.5 rounded-xl border border-indigo-200/80 bg-indigo-50/60 p-2.5 text-xs text-indigo-900 shadow-2xs">
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-indigo-100 text-indigo-600 shrink-0">
-              <PackageSearch className="h-4 w-4 animate-pulse" />
+          <div className="my-2 flex items-center gap-2.5 rounded-none border border-border dark:border-white/10 bg-card dark:bg-[#13161a] p-2.5 text-xs text-foreground dark:text-zinc-200 shadow-hard-sm font-mono">
+            <div className="flex h-7 w-7 items-center justify-center border border-border dark:border-white/10 bg-muted/40 dark:bg-[#181b20] text-foreground shrink-0">
+              <PackageSearch className="h-4 w-4 text-[#ece945] animate-pulse" />
             </div>
             <div className="flex-1 min-w-0">
-              <span className="font-semibold text-indigo-900">
-                Querying product inventory...
+              <span className="font-bold text-foreground dark:text-zinc-100">
+                Querying catalog inventory status...
               </span>
               {parameters?.search && (
-                <p className="text-[10px] text-indigo-700/80 mt-0.5 truncate">
+                <p className="text-[10px] text-muted-foreground mt-0.5 truncate">
                   Keyword: "{parameters.search}"
                 </p>
               )}
             </div>
-            <Loader2 className="h-3.5 w-3.5 animate-spin text-indigo-600 shrink-0" />
+            <Loader2 className="h-3.5 w-3.5 animate-spin text-foreground shrink-0" />
           </div>
         );
       }
@@ -124,17 +124,17 @@ export function useBackendToolRenderers() {
       const count = data?.count ?? (data?.products?.length || 0);
 
       return (
-        <div className="my-2 rounded-xl border border-indigo-200/90 bg-indigo-50/40 p-2.5 text-xs text-indigo-950 shadow-2xs">
+        <div className="my-2 rounded-none border border-border dark:border-white/10 bg-card dark:bg-[#13161a] p-2.5 text-xs text-foreground dark:text-zinc-200 shadow-hard-sm font-mono">
           <div className="flex items-center justify-between">
-            <span className="flex items-center gap-1.5 font-semibold text-indigo-900">
-              <CheckCircle2 className="h-4 w-4 text-indigo-600 shrink-0" />
-              Found {count} matching products
+            <span className="flex items-center gap-1.5 font-bold text-foreground dark:text-zinc-100">
+              <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
+              Retrieved {count} catalog items
             </span>
             <Badge
               variant="outline"
-              className="border-indigo-300/80 text-indigo-700 bg-white text-[10px]"
+              className="border-border dark:border-white/10 text-foreground dark:text-zinc-200 bg-muted/40 dark:bg-[#181b20] text-[10px] rounded-none font-bold"
             >
-              Catalog Service
+              [ CATALOG ]
             </Badge>
           </div>
         </div>
@@ -153,21 +153,21 @@ export function useBackendToolRenderers() {
     render: ({ status, parameters, result }) => {
       if (status === "inProgress" || status === "executing") {
         return (
-          <div className="my-2 flex items-center gap-2.5 rounded-xl border border-amber-200/80 bg-amber-50/60 p-2.5 text-xs text-amber-900 shadow-2xs">
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-amber-100 text-amber-600 shrink-0">
-              <Receipt className="h-4 w-4 animate-bounce" />
+          <div className="my-2 flex items-center gap-2.5 rounded-none border border-border dark:border-white/10 bg-card dark:bg-[#13161a] p-2.5 text-xs text-foreground dark:text-zinc-200 shadow-hard-sm font-mono">
+            <div className="flex h-7 w-7 items-center justify-center border border-border dark:border-white/10 bg-muted/40 dark:bg-[#181b20] text-foreground shrink-0">
+              <Receipt className="h-4 w-4 text-[#ece945] animate-pulse" />
             </div>
             <div className="flex-1 min-w-0">
-              <span className="font-semibold text-amber-900">
-                Querying order list...
+              <span className="font-bold text-foreground dark:text-zinc-100">
+                Querying order lifecycle dossiers...
               </span>
               {parameters?.status && (
-                <p className="text-[10px] text-amber-700/80 mt-0.5 truncate">
-                  Status: {parameters.status}
+                <p className="text-[10px] text-muted-foreground mt-0.5 truncate">
+                  Status filter: {parameters.status}
                 </p>
               )}
             </div>
-            <Loader2 className="h-3.5 w-3.5 animate-spin text-amber-600 shrink-0" />
+            <Loader2 className="h-3.5 w-3.5 animate-spin text-foreground shrink-0" />
           </div>
         );
       }
@@ -176,17 +176,17 @@ export function useBackendToolRenderers() {
       const count = data?.count ?? (data?.orders?.length || 0);
 
       return (
-        <div className="my-2 rounded-xl border border-amber-200/90 bg-amber-50/40 p-2.5 text-xs text-amber-950 shadow-2xs">
+        <div className="my-2 rounded-none border border-border dark:border-white/10 bg-card dark:bg-[#13161a] p-2.5 text-xs text-foreground dark:text-zinc-200 shadow-hard-sm font-mono">
           <div className="flex items-center justify-between">
-            <span className="flex items-center gap-1.5 font-semibold text-amber-900">
-              <CheckCircle2 className="h-4 w-4 text-amber-600 shrink-0" />
-              Loaded {count} orders
+            <span className="flex items-center gap-1.5 font-bold text-foreground dark:text-zinc-100">
+              <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
+              Retrieved {count} order dossiers
             </span>
             <Badge
               variant="outline"
-              className="border-amber-300/80 text-amber-700 bg-white text-[10px]"
+              className="border-border dark:border-white/10 text-foreground dark:text-zinc-200 bg-muted/40 dark:bg-[#181b20] text-[10px] rounded-none font-bold"
             >
-              Orders Service
+              [ ORDERS ]
             </Badge>
           </div>
         </div>
@@ -206,16 +206,16 @@ export function useBackendToolRenderers() {
     render: ({ status, result }) => {
       if (status === "inProgress" || status === "executing") {
         return (
-          <div className="my-2 flex items-center gap-2.5 rounded-xl border border-purple-200/80 bg-purple-50/60 p-2.5 text-xs text-purple-900 shadow-2xs">
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-purple-100 text-purple-600 shrink-0">
-              <Users className="h-4 w-4 animate-pulse" />
+          <div className="my-2 flex items-center gap-2.5 rounded-none border border-border dark:border-white/10 bg-card dark:bg-[#13161a] p-2.5 text-xs text-foreground dark:text-zinc-200 shadow-hard-sm font-mono">
+            <div className="flex h-7 w-7 items-center justify-center border border-border dark:border-white/10 bg-muted/40 dark:bg-[#181b20] text-foreground shrink-0">
+              <Users className="h-4 w-4 text-[#ece945] animate-pulse" />
             </div>
             <div className="flex-1 min-w-0">
-              <span className="font-semibold text-purple-900">
-                Querying customer directory...
+              <span className="font-bold text-foreground dark:text-zinc-100">
+                Querying customer registry...
               </span>
             </div>
-            <Loader2 className="h-3.5 w-3.5 animate-spin text-purple-600 shrink-0" />
+            <Loader2 className="h-3.5 w-3.5 animate-spin text-foreground shrink-0" />
           </div>
         );
       }
@@ -224,17 +224,17 @@ export function useBackendToolRenderers() {
       const count = data?.count ?? (data?.customers?.length || 0);
 
       return (
-        <div className="my-2 rounded-xl border border-purple-200/90 bg-purple-50/40 p-2.5 text-xs text-purple-950 shadow-2xs">
+        <div className="my-2 rounded-none border border-border dark:border-white/10 bg-card dark:bg-[#13161a] p-2.5 text-xs text-foreground dark:text-zinc-200 shadow-hard-sm font-mono">
           <div className="flex items-center justify-between">
-            <span className="flex items-center gap-1.5 font-semibold text-purple-900">
-              <CheckCircle2 className="h-4 w-4 text-purple-600 shrink-0" />
-              Loaded {count} user profiles
+            <span className="flex items-center gap-1.5 font-bold text-foreground dark:text-zinc-100">
+              <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
+              Retrieved {count} customer profiles
             </span>
             <Badge
               variant="outline"
-              className="border-purple-300/80 text-purple-700 bg-white text-[10px]"
+              className="border-border dark:border-white/10 text-foreground dark:text-zinc-200 bg-muted/40 dark:bg-[#181b20] text-[10px] rounded-none font-bold"
             >
-              Users Service
+              [ CUSTOMERS ]
             </Badge>
           </div>
         </div>
@@ -250,17 +250,17 @@ export function useBackendToolRenderers() {
 
       if (status === "inProgress" || status === "executing") {
         return (
-          <div className="my-2 flex items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-1.5 text-xs text-slate-700">
-            <Loader2 className="h-3.5 w-3.5 animate-spin text-blue-600 shrink-0" />
+          <div className="my-2 flex items-center gap-2 rounded-none border border-border dark:border-white/10 bg-card dark:bg-[#13161a] p-2 text-xs text-foreground dark:text-zinc-200 shadow-hard-sm font-mono">
+            <Loader2 className="h-3.5 w-3.5 animate-spin text-foreground shrink-0" />
             <span>
-              Executing action: <strong>{name}</strong>...
+              Executing directive: <strong>{name}</strong>...
             </span>
           </div>
         );
       }
 
       return (
-        <div className="my-1.5 flex items-center gap-1.5 text-[11px] text-slate-500">
+        <div className="my-1.5 flex items-center gap-1.5 text-[11px] text-muted-foreground font-mono">
           <CheckCircle2 className="h-3 w-3 text-emerald-500 shrink-0" />
           <span>
             Completed <strong>{name}</strong>

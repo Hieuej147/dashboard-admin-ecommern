@@ -35,24 +35,23 @@ export function AiWorkspaceHeader({
   onClearCanvas,
 }: AiWorkspaceHeaderProps) {
   return (
-    <div className="flex flex-wrap items-center justify-between gap-3 px-1 py-0.5 shrink-0">
+    <div className="flex flex-wrap items-center justify-between gap-3 px-1 py-1 shrink-0 border-b border-border pb-3 font-mono">
       {/* Brand & Studio Title */}
       <div className="flex items-center gap-3">
-        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/20">
-          <Sparkles className="h-4 w-4" />
+        <div className="flex h-8 w-8 items-center justify-center border border-border bg-card text-foreground font-bold shadow-hard-sm">
+          <Sparkles className="h-4 w-4 text-[#ece945]" />
         </div>
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-base font-semibold tracking-tight text-slate-900">
-              AI Commerce Studio
+            <h1 className="text-sm sm:text-base font-heading font-bold uppercase tracking-wider text-foreground">
+              AI COMMERCE STUDIO
             </h1>
-            <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              Online
+            <span className="border border-emerald-500/40 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-bold text-emerald-600 dark:text-emerald-400">
+              [ ONLINE: OPERATIONAL ]
             </span>
           </div>
-          <p className="text-xs text-slate-500 hidden sm:block">
-            E-Commerce Copilot Assistant & A2UI Dynamic Generative Surfaces
+          <p className="text-[11px] text-muted-foreground hidden sm:block">
+            Executive commerce assistant and real-time A2UI visual surface
           </p>
         </div>
       </div>
@@ -78,22 +77,22 @@ export function AiWorkspaceHeader({
             variant="outline"
             size="sm"
             onClick={onClearCanvas}
-            className="h-8 gap-1.5 border-slate-200 text-xs text-slate-600 hover:bg-rose-50 hover:text-rose-600 hover:border-rose-200"
+            className="h-8 gap-1.5 border border-border bg-card text-xs font-bold text-rose-500 hover:bg-rose-500/10 rounded-none shadow-hard-sm cursor-pointer"
           >
             <Trash2 className="h-3.5 w-3.5" />
-            <span className="hidden md:inline">Clear Canvas</span>
+            <span className="hidden md:inline">CLEAR CANVAS</span>
           </Button>
         )}
 
         <Button
-          variant="default"
+          variant="outline"
           size="sm"
           onClick={() => onCreateThread()}
           disabled={isCreatingThread}
-          className="h-8 gap-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium shadow-xs"
+          className="h-8 gap-1.5 border border-border bg-card hover:bg-muted text-foreground text-xs font-bold rounded-none shadow-hard-sm cursor-pointer"
         >
-          <Plus className="h-3.5 w-3.5" />
-          <span>New Thread</span>
+          <Plus className="h-3.5 w-3.5 text-[#ece945]" />
+          <span>NEW THREAD</span>
         </Button>
       </div>
     </div>

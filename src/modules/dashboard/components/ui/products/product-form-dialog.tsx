@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { ImageUploader } from "@/components/ui/image-uploader";
 import { useCreateProduct, useUpdateProduct } from "@/hooks/use-products";
 import type { ProductDto } from "@/hooks/query-key/query-key";
 import { parseMoneyAmount } from "@/lib/utils";
@@ -53,7 +54,7 @@ export function ProductFormDialog({
       setDescription(product.description || "");
       setStockQuantity(product.stockQuantity || 0);
       setPriceVnd(parseMoneyAmount(product.price?.amountMinor));
-      setImageUrl(product.images?.main || product.images?.[0] || "");
+      setImageUrl(product.images?.main || (product.images as any)?.[0] || "");
       setSizes((product.sizes || []).join(", "));
       setColors((product.colors || []).join(", "));
       setErrorMsg("");
@@ -70,7 +71,6 @@ export function ProductFormDialog({
     }
   }, [product, open]);
 
-  // Auto-generate slug from name if in create mode and user hasn't manually edited slug
   const handleNameChange = (val: string) => {
     setName(val);
     if (!isEdit && !slug) {
@@ -89,7 +89,7 @@ export function ProductFormDialog({
     setErrorMsg("");
 
     if (!name.trim()) {
-      setErrorMsg("Product name is required.");
+      setErrorMsg("Please enter a product name.");
       return;
     }
 
@@ -103,7 +103,9 @@ export function ProductFormDialog({
       .map((c) => c.trim())
       .filter(Boolean);
 
-    const imagesPayload: Record<string, string> = imageUrl.trim() ? { main: imageUrl.trim() } : {};
+    const imagesPayload: Record<string, string> = imageUrl.trim()
+      ? { main: imageUrl.trim() }
+      : {};
 
     try {
       if (isEdit && product) {
@@ -145,73 +147,93 @@ export function ProductFormDialog({
       onOpenChange(false);
       onSuccess?.();
     } catch (err: any) {
-      setErrorMsg(err?.response?.data?.message || err?.message || "Failed to save product.");
+      setErrorMsg(
+        err?.response?.data?.message || err?.message || "Failed to save product data."
+      );
     }
   };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-        <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <Package className="h-5 w-5 text-indigo-500" />
-            {isEdit ? "Edit Product" : "Create New Product"}
+      <DialogContent className="sm:max-w-xl max-h-[90vh] overflow-y-auto font-mono p-6 border-2 border-border bg-card shadow-hard-md">
+        <DialogHeader className="border-b border-border pb-3">
+          <div className="flex items-center gap-2 text-[10px] font-bold tracking-widest text-[#ece945] uppercase">
+            <span>PRODUCT DATA REPOSITORY</span>
+          </div>
+          <DialogTitle className="flex items-center gap-2 text-base font-bold uppercase tracking-wider text-foreground">
+            <Package className="h-4 w-4" />
+            {isEdit ? "UPDATE PRODUCT DETAILS" : "ADD NEW PRODUCT"}
           </DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="text-xs text-muted-foreground">
             {isEdit
-              ? "Update product details, pricing, and inventory stock."
-              : "Fill in the details below to add a new product to your catalog."}
+              ? "Update specifications, retail pricing, and inventory thresholds."
+              : "Provide product specifications and upload assets directly to S3 storage."}
           </DialogDescription>
         </DialogHeader>
 
         {errorMsg && (
-          <div className="rounded-lg border border-rose-200 bg-rose-50 p-3 text-xs text-rose-700">
+          <div className="border border-rose-300 dark:border-rose-900/50 bg-rose-500/10 p-2.5 text-xs text-rose-600 dark:text-rose-400">
             {errorMsg}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4 py-2 text-sm">
-          <div className="grid gap-2">
-            <Label htmlFor="prod-name">Product Name *</Label>
+        <form onSubmit={handleSubmit} className="space-y-4 py-2 text-xs">
+          {/* Product Name */}
+          <div className="grid gap-1.5">
+            <Label htmlFor="prod-name" className="text-xs font-bold uppercase">
+              Product Name *
+            </Label>
             <Input
               id="prod-name"
-              placeholder="e.g. Premium Cotton T-Shirt"
+              placeholder="e.g., Premium Cotton Crewneck Tee"
               value={name}
               onChange={(e) => handleNameChange(e.target.value)}
+              className="border-border bg-muted/20"
               required
             />
           </div>
 
-          <div className="grid gap-2">
-            <Label htmlFor="prod-slug">Slug {!isEdit && "*"}</Label>
+          {/* Slug */}
+          <div className="grid gap-1.5">
+            <Label htmlFor="prod-slug" className="text-xs font-bold uppercase">
+              URL Slug {!isEdit && "*"}
+            </Label>
             <Input
               id="prod-slug"
-              placeholder="e.g. premium-cotton-t-shirt"
+              placeholder="premium-cotton-crewneck-tee"
               value={slug}
               onChange={(e) => setSlug(e.target.value)}
-              disabled={isEdit} // slugs are typically immutable on backend
+              disabled={isEdit}
+              className="border-border bg-muted/20"
             />
             {!isEdit && (
-              <p className="text-[11px] text-slate-400">
-                Unique identifier for URL. Auto-generated from name.
+              <p className="text-[10px] text-muted-foreground">
+                Auto-generated from title for storefront routing.
               </p>
             )}
           </div>
 
-          <div className="grid gap-2">
-            <Label htmlFor="prod-desc">Description</Label>
+          {/* Description */}
+          <div className="grid gap-1.5">
+            <Label htmlFor="prod-desc" className="text-xs font-bold uppercase">
+              Detailed Description
+            </Label>
             <Textarea
               id="prod-desc"
               rows={3}
-              placeholder="Detailed description of the product..."
+              placeholder="Specifications, material composition, features..."
               value={description}
               onChange={(e) => setDescription(e.target.value)}
+              className="border-border bg-muted/20"
             />
           </div>
 
+          {/* Price & Stock */}
           <div className="grid grid-cols-2 gap-3">
-            <div className="grid gap-2">
-              <Label htmlFor="prod-price">Price (VND) *</Label>
+            <div className="grid gap-1.5">
+              <Label htmlFor="prod-price" className="text-xs font-bold uppercase">
+                Retail Price (VND) *
+              </Label>
               <Input
                 id="prod-price"
                 type="number"
@@ -219,12 +241,15 @@ export function ProductFormDialog({
                 placeholder="250000"
                 value={priceVnd}
                 onChange={(e) => setPriceVnd(Number(e.target.value))}
+                className="border-border bg-muted/20"
                 required
               />
             </div>
 
-            <div className="grid gap-2">
-              <Label htmlFor="prod-stock">Stock Quantity *</Label>
+            <div className="grid gap-1.5">
+              <Label htmlFor="prod-stock" className="text-xs font-bold uppercase">
+                Stock Quantity *
+              </Label>
               <Input
                 id="prod-stock"
                 type="number"
@@ -232,59 +257,70 @@ export function ProductFormDialog({
                 placeholder="50"
                 value={stockQuantity}
                 onChange={(e) => setStockQuantity(Number(e.target.value))}
+                className="border-border bg-muted/20"
                 required
               />
             </div>
           </div>
 
-          <div className="grid gap-2">
-            <Label htmlFor="prod-image">Image URL</Label>
-            <Input
-              id="prod-image"
-              type="url"
-              placeholder="https://example.com/product.png"
+          {/* S3 Image Uploader Component */}
+          <div className="grid gap-1.5">
+            <Label className="text-xs font-bold uppercase">
+              Product Image (Uploaded to S3 Storage)
+            </Label>
+            <ImageUploader
               value={imageUrl}
-              onChange={(e) => setImageUrl(e.target.value)}
+              onChange={(url) => setImageUrl(url)}
+              folder="products"
+              disabled={isPending}
             />
           </div>
 
+          {/* Sizes & Colors */}
           <div className="grid grid-cols-2 gap-3">
-            <div className="grid gap-2">
-              <Label htmlFor="prod-sizes">Sizes (comma separated)</Label>
+            <div className="grid gap-1.5">
+              <Label htmlFor="prod-sizes" className="text-xs font-bold uppercase">
+                Sizes (Comma separated)
+              </Label>
               <Input
                 id="prod-sizes"
                 placeholder="S, M, L, XL"
                 value={sizes}
                 onChange={(e) => setSizes(e.target.value)}
+                className="border-border bg-muted/20"
               />
             </div>
 
-            <div className="grid gap-2">
-              <Label htmlFor="prod-colors">Colors (comma separated)</Label>
+            <div className="grid gap-1.5">
+              <Label htmlFor="prod-colors" className="text-xs font-bold uppercase">
+                Colors (Comma separated)
+              </Label>
               <Input
                 id="prod-colors"
                 placeholder="Black, White, Navy"
                 value={colors}
                 onChange={(e) => setColors(e.target.value)}
+                className="border-border bg-muted/20"
               />
             </div>
           </div>
 
-          <DialogFooter className="mt-4 pt-2">
+          <DialogFooter className="mt-4 pt-3 border-t border-border flex justify-end gap-2">
             <Button
               type="button"
               variant="outline"
               onClick={() => onOpenChange(false)}
               disabled={isPending}
+              className="border-border text-xs uppercase cursor-pointer"
             >
               Cancel
             </Button>
             <Button
               type="submit"
-              className="bg-indigo-600 hover:bg-indigo-700 text-white"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 text-xs uppercase font-bold shadow-hard-sm cursor-pointer"
               disabled={isPending}
             >
-              {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              {isPending && <Loader2 className="mr-2 h-3.5 w-3.5 animate-spin" />}
               {isEdit ? "Update Product" : "Create Product"}
             </Button>
           </DialogFooter>

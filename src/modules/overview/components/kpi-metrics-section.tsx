@@ -1,11 +1,10 @@
 import React, { useMemo } from "react";
 import {
   CreditCard,
-  DollarSign,
+  CircleDollarSign,
   ShoppingBag,
   TrendingUp,
 } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
 import type {
   KpiMetricsSectionProps,
   MetricItem,
@@ -21,64 +20,70 @@ export const KpiMetricsSection = React.memo(function KpiMetricsSection({
   const metrics: MetricItem[] = useMemo(
     () => [
       {
-        label: "Total Revenue",
+        label: "TOTAL REVENUE",
         value: revenueStr,
-        delta: "From paid orders",
-        icon: DollarSign,
-        tone: "bg-indigo-50 text-indigo-600",
+        delta: "Settled orders",
+        icon: CircleDollarSign,
+        tone: "border-[#ece945] bg-[#ece945]/10 text-foreground",
       },
       {
-        label: "Completed Orders",
+        label: "FULFILLED ORDERS",
         value: orderCountStr,
-        delta: "Processed successfully",
+        delta: "Processed & delivered",
         icon: ShoppingBag,
-        tone: "bg-emerald-50 text-emerald-600",
+        tone: "border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
       },
       {
-        label: "Average Order",
+        label: "AVERAGE ORDER VALUE",
         value: avgOrderStr,
-        delta: "Revenue / Order",
+        delta: "Revenue per order",
         icon: TrendingUp,
-        tone: "bg-amber-50 text-amber-600",
+        tone: "border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400",
       },
       {
-        label: "Payment Health",
+        label: "PAYMENT SUCCESS RATE",
         value: `${healthPercent}%`,
-        delta: "Success rate",
+        delta: "Gateway settlements",
         icon: CreditCard,
-        tone: "bg-violet-50 text-violet-600",
+        tone: "border-border bg-muted/40 text-foreground",
       },
     ],
     [revenueStr, orderCountStr, avgOrderStr, healthPercent]
   );
 
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4 font-mono select-none">
       {metrics.map((metric) => {
         const Icon = metric.icon;
         return (
-          <Card key={metric.label} className="gap-3 py-5">
-            <CardContent className="px-5">
-              <div className="flex items-start justify-between">
-                <span
-                  className={`flex h-9 w-9 items-center justify-center rounded-lg ${metric.tone}`}
-                >
-                  <Icon className="h-4 w-4" />
-                </span>
-                <span className="text-[11px] text-slate-400">
-                  {metric.delta}
-                </span>
-              </div>
-              <p className="mt-4 text-xs font-medium text-slate-500 uppercase tracking-wider">
+          <div
+            key={metric.label}
+            className="border border-border bg-card p-4 shadow-hard-sm flex flex-col justify-between"
+          >
+            <div className="flex items-start justify-between">
+              <span
+                className={`flex h-8 w-8 items-center justify-center border ${metric.tone}`}
+              >
+                <Icon className="h-4 w-4" />
+              </span>
+              <span className="text-[10px] text-muted-foreground uppercase tracking-wider">
+                {metric.delta}
+              </span>
+            </div>
+
+            <div className="mt-4">
+              <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
                 {metric.label}
               </p>
-              <p className="mt-1 text-2xl font-bold tracking-tight text-slate-950 truncate">
-                {isLoading ? "—" : metric.value}
+              <p className="mt-1 font-heading text-2xl font-bold tracking-tight text-foreground truncate select-all">
+                {isLoading ? "..." : metric.value}
               </p>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         );
       })}
     </div>
   );
 });
+
+KpiMetricsSection.displayName = "KpiMetricsSection";

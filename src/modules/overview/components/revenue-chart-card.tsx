@@ -10,77 +10,85 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-} from "@/components/ui/card";
 import type { RevenueChartCardProps } from "../types/overview.types";
 
 export const RevenueChartCard = React.memo(function RevenueChartCard({
   chartData,
 }: RevenueChartCardProps) {
   return (
-    <Card>
-      <CardHeader className="flex flex-row items-start justify-between border-b border-slate-100 pb-4">
+    <div className="border border-border bg-card shadow-hard-md overflow-hidden font-mono select-none flex flex-col justify-between">
+      <div className="flex flex-row items-center justify-between border-b border-border bg-muted/20 px-4 py-3">
         <div>
-          <CardTitle className="text-base">Revenue Overview</CardTitle>
-          <CardDescription className="mt-1">
-            Gross revenue performance across recent periods.
-          </CardDescription>
+          <div className="flex items-center gap-2">
+            <span className="h-2 w-2 bg-[#ece945]" />
+            <h3 className="text-xs font-bold uppercase tracking-wider text-foreground">
+              PERIODIC REVENUE TRAJECTORY
+            </h3>
+          </div>
+          <p className="mt-0.5 text-[11px] text-muted-foreground">
+            Gross revenue performance over recent months (Unit: Million VND)
+          </p>
         </div>
+
         <Link
           to="/orders"
-          className="inline-flex items-center gap-1 text-xs font-medium text-indigo-600 hover:text-indigo-800 transition"
+          className="inline-flex items-center gap-1 border border-border bg-muted/40 hover:bg-muted px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-foreground transition-colors"
         >
-          View all orders <ArrowUpRight className="h-3.5 w-3.5" />
+          <span>VIEW ORDERS</span>
+          <ArrowUpRight className="h-3 w-3" />
         </Link>
-      </CardHeader>
-      <CardContent className="h-72 pt-5">
+      </div>
+
+      <div className="h-72 p-4">
         <ResponsiveContainer width="100%" height="100%" debounce={150}>
-          <AreaChart data={chartData} margin={{ left: -20, right: 8, top: 8 }}>
+          <AreaChart data={chartData} margin={{ left: -20, right: 8, top: 12 }}>
             <defs>
               <linearGradient id="revenueFill" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#6366f1" stopOpacity={0.24} />
-                <stop offset="100%" stopColor="#6366f1" stopOpacity={0} />
+                <stop offset="0%" stopColor="#ece945" stopOpacity={0.4} />
+                <stop offset="100%" stopColor="#ece945" stopOpacity={0.02} />
               </linearGradient>
             </defs>
             <CartesianGrid
               vertical={false}
-              stroke="#e2e8f0"
-              strokeDasharray="3 3"
+              stroke="rgba(148, 163, 184, 0.15)"
+              strokeDasharray="2 2"
             />
             <XAxis
               dataKey="month"
               axisLine={false}
               tickLine={false}
-              tick={{ fill: "#94a3b8", fontSize: 11 }}
+              tick={{ fill: "#94a3b8", fontSize: 10, fontFamily: "Space Mono" }}
             />
             <YAxis
               axisLine={false}
               tickLine={false}
-              tick={{ fill: "#94a3b8", fontSize: 11 }}
+              tick={{ fill: "#94a3b8", fontSize: 10, fontFamily: "Space Mono" }}
             />
             <Tooltip
               contentStyle={{
-                borderRadius: 10,
-                border: "1px solid #e2e8f0",
-                boxShadow: "0 8px 24px rgba(15,23,42,.08)",
+                borderRadius: "0px",
+                border: "1px solid #000000",
+                backgroundColor: "#16181a",
+                color: "#f3f4f6",
+                boxShadow: "3px 3px 0px 0px rgba(0,0,0,0.9)",
+                fontFamily: "Space Mono",
+                fontSize: "11px",
               }}
+              formatter={(val: any) => [`${val}M VND`, "Revenue"]}
             />
             <Area
-              type="monotone"
+              type="stepAfter"
               dataKey="revenue"
-              stroke="#4f46e5"
-              strokeWidth={2.5}
+              stroke="#ece945"
+              strokeWidth={2}
               fill="url(#revenueFill)"
               isAnimationActive={false}
             />
           </AreaChart>
         </ResponsiveContainer>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 });
+
+RevenueChartCard.displayName = "RevenueChartCard";

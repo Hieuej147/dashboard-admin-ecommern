@@ -9,27 +9,27 @@ export const SystemHealthBadge = React.memo(function SystemHealthBadge() {
   const isHealthy = !isLoading && !isError && data?.status === "ok";
 
   return (
-    <div className="relative">
+    <div className="relative font-mono">
       <button
         type="button"
         onClick={() => refetch()}
         onMouseEnter={() => setShowTooltip(true)}
         onMouseLeave={() => setShowTooltip(false)}
-        className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium border transition-colors ${
+        className={`inline-flex items-center gap-2 px-2.5 py-1 text-[11px] font-mono uppercase tracking-wider border transition-colors ${
           isHealthy
-            ? "bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100/80"
+            ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20"
             : isLoading
-            ? "bg-amber-50 text-amber-700 border-amber-200"
-            : "bg-rose-50 text-rose-700 border-rose-200 hover:bg-rose-100"
+            ? "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/30"
+            : "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/30 hover:bg-rose-500/20"
         }`}
-        title="Click to check backend connectivity"
+        title="Click to check API Gateway connection"
       >
         <span className="relative flex h-2 w-2">
           {isHealthy && (
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+            <span className="animate-ping absolute inline-flex h-full w-full bg-emerald-400 opacity-75" />
           )}
           <span
-            className={`relative inline-flex rounded-full h-2 w-2 ${
+            className={`relative inline-flex h-2 w-2 ${
               isHealthy
                 ? "bg-emerald-500"
                 : isLoading
@@ -40,44 +40,44 @@ export const SystemHealthBadge = React.memo(function SystemHealthBadge() {
         </span>
         <span className="hidden sm:inline">
           {isHealthy
-            ? `Gateway OK (${data?.latencyMs ?? 0}ms)`
+            ? `GATEWAY: OK (${data?.latencyMs ?? 0}ms)`
             : isLoading
-            ? "Checking..."
-            : "Gateway Offline"}
+            ? "CHECKING..."
+            : "DISCONNECTED"}
         </span>
         <RefreshCw
-          className={`h-3 w-3 ${isFetching ? "animate-spin text-slate-500" : "opacity-60"}`}
+          className={`h-3 w-3 ${isFetching ? "animate-spin text-muted-foreground" : "opacity-60"}`}
         />
       </button>
 
       {/* Popover / Tooltip */}
       {showTooltip && (
-        <div className="absolute right-0 top-full mt-2 w-56 rounded-lg bg-slate-900 p-3 text-xs text-white shadow-xl z-50 pointer-events-none animate-in fade-in zoom-in-95 duration-100">
-          <div className="flex items-center gap-2 border-b border-slate-800 pb-2 mb-2 font-medium">
-            <Activity className="h-3.5 w-3.5 text-indigo-400" />
-            <span>API Gateway Health</span>
+        <div className="absolute right-0 top-full mt-2 w-64 border border-border bg-card p-3 text-xs text-card-foreground shadow-hard-md z-50 pointer-events-none animate-in fade-in duration-100 font-mono">
+          <div className="flex items-center gap-2 border-b border-border pb-2 mb-2 font-bold uppercase tracking-wider">
+            <Activity className="h-3.5 w-3.5 text-[#ece945]" />
+            <span>SYSTEM STATUS</span>
           </div>
-          <div className="space-y-1.5 text-slate-300">
+          <div className="space-y-1.5 text-xs">
             <div className="flex justify-between">
-              <span>Status:</span>
-              <span className={isHealthy ? "text-emerald-400 font-medium" : "text-rose-400 font-medium"}>
-                {isHealthy ? "Operational (200 OK)" : isError ? "Offline" : "Checking"}
+              <span className="text-muted-foreground">Gateway:</span>
+              <span className={isHealthy ? "text-emerald-500 font-bold" : "text-rose-500 font-bold"}>
+                {isHealthy ? "Operational" : isError ? "Unresponsive" : "Checking"}
               </span>
             </div>
             {data?.latencyMs !== undefined && (
               <div className="flex justify-between">
-                <span>Latency:</span>
-                <span className="text-slate-100">{data.latencyMs} ms</span>
+                <span className="text-muted-foreground">Latency:</span>
+                <span className="font-bold">{data.latencyMs} ms</span>
               </div>
             )}
             {data?.timestamp && (
               <div className="flex justify-between">
-                <span>Checked at:</span>
-                <span className="text-slate-400">{data.timestamp}</span>
+                <span className="text-muted-foreground">Timestamp:</span>
+                <span className="text-muted-foreground">{data.timestamp}</span>
               </div>
             )}
-            <div className="text-[10px] text-slate-500 pt-1 border-t border-slate-800/80">
-              Auto-refreshes every 30 seconds
+            <div className="text-[10px] text-muted-foreground pt-1.5 border-t border-border">
+              Auto-refreshed every 30s
             </div>
           </div>
         </div>
@@ -85,3 +85,5 @@ export const SystemHealthBadge = React.memo(function SystemHealthBadge() {
     </div>
   );
 });
+
+SystemHealthBadge.displayName = "SystemHealthBadge";

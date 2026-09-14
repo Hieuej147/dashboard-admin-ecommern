@@ -21,37 +21,37 @@ function getNotificationVisuals(type: string) {
     case "ORDER_CANCELLED":
       return {
         icon: Bell,
-        tone: "text-indigo-600 bg-indigo-50",
+        tone: "text-foreground border-border bg-muted/40",
       };
     case "PAYMENT_SUCCESS":
       return {
         icon: CreditCard,
-        tone: "text-emerald-600 bg-emerald-50",
+        tone: "text-emerald-600 dark:text-emerald-400 border-emerald-500/30 bg-emerald-500/10",
       };
     case "PAYMENT_FAILED":
       return {
         icon: CircleAlert,
-        tone: "text-rose-600 bg-rose-50",
+        tone: "text-rose-600 dark:text-rose-400 border-rose-500/30 bg-rose-500/10",
       };
     case "PRODUCT_LOW_STOCK":
       return {
         icon: Package,
-        tone: "text-amber-600 bg-amber-50",
+        tone: "text-amber-600 dark:text-amber-400 border-amber-500/30 bg-amber-500/10",
       };
     case "NEW_CUSTOMER":
       return {
         icon: UserCheck,
-        tone: "text-violet-600 bg-violet-50",
+        tone: "text-blue-600 dark:text-blue-400 border-blue-500/30 bg-blue-500/10",
       };
     default:
       return {
         icon: ShieldCheck,
-        tone: "text-slate-600 bg-slate-100",
+        tone: "text-muted-foreground border-border bg-muted/20",
       };
   }
 }
 
-function formatRelativeTime(dateString: string) {
+function formatRelativeTimeEn(dateString: string) {
   const diffMs = Math.max(0, Date.now() - new Date(dateString).getTime());
   const diffMinutes = Math.floor(diffMs / 60_000);
   if (diffMinutes < 1) return "Just now";
@@ -77,12 +77,14 @@ export const NotificationItem = React.memo(function NotificationItem({
     <button
       type="button"
       onClick={() => onClick(item)}
-      className={`flex w-full items-start gap-4 px-5 py-4 text-left transition hover:bg-slate-50 ${
-        !item.read ? "bg-indigo-50/25" : ""
+      className={`flex w-full items-start gap-3.5 p-4 text-left transition-colors font-mono cursor-pointer ${
+        !item.read
+          ? "bg-muted/30 border-l-2 border-l-[#ece945]"
+          : "hover:bg-muted/20 border-l-2 border-l-transparent"
       }`}
     >
       <span
-        className={`mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${tone}`}
+        className={`flex h-8 w-8 shrink-0 items-center justify-center border ${tone}`}
       >
         <Icon className="h-4 w-4" />
       </span>
@@ -91,24 +93,24 @@ export const NotificationItem = React.memo(function NotificationItem({
         <span className="flex items-center justify-between gap-2">
           <span className="flex items-center gap-2">
             <span
-              className={`text-sm ${
+              className={`text-xs uppercase tracking-wider ${
                 !item.read
-                  ? "font-semibold text-slate-950"
-                  : "font-medium text-slate-800"
+                  ? "font-bold text-foreground"
+                  : "font-medium text-muted-foreground"
               }`}
             >
               {item.title}
             </span>
             {!item.read && (
-              <span className="h-1.5 w-1.5 rounded-full bg-indigo-600" />
+              <span className="h-1.5 w-1.5 bg-[#ece945]" />
             )}
           </span>
-          <span className="text-xs text-slate-400">
-            {formatRelativeTime(item.createdAt)}
+          <span className="text-[10px] text-muted-foreground">
+            {formatRelativeTimeEn(item.createdAt)}
           </span>
         </span>
 
-        <span className="mt-1 block text-sm text-slate-600">
+        <span className="mt-1 block text-xs text-muted-foreground leading-relaxed">
           {item.message}
         </span>
       </span>

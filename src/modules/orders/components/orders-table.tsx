@@ -1,6 +1,5 @@
 import React, { type ReactNode } from "react";
 import { Eye } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import {
   Table,
   TableHeader,
@@ -26,7 +25,7 @@ function TableMessage({ children }: { children: ReactNode }) {
     <TableRow>
       <TableCell
         colSpan={7}
-        className="py-10 text-center text-sm text-slate-500"
+        className="py-12 text-center text-xs font-mono text-muted-foreground"
       >
         {children}
       </TableCell>
@@ -35,16 +34,20 @@ function TableMessage({ children }: { children: ReactNode }) {
 }
 
 function OrderStatusBadge({ value }: { value: string }) {
-  const normalized = value.toUpperCase();
-  const style = normalized.includes("PAID")
-    ? "border-emerald-200 bg-emerald-50 text-emerald-700"
-    : normalized.includes("FAILED") || normalized.includes("CANCEL")
-      ? "border-rose-200 bg-rose-50 text-rose-700"
-      : "border-amber-200 bg-amber-50 text-amber-700";
+  const normalized = (value || "").toUpperCase();
+  const isPaid = normalized.includes("PAID");
+  const isFailed = normalized.includes("FAILED") || normalized.includes("CANCEL");
+
+  const style = isPaid
+    ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+    : isFailed
+    ? "border-rose-500/40 bg-rose-500/10 text-rose-600 dark:text-rose-400"
+    : "border-amber-500/40 bg-amber-500/10 text-amber-600 dark:text-amber-400";
+
   return (
-    <Badge variant="outline" className={style}>
-      {value.replaceAll("_", " ")}
-    </Badge>
+    <span className={`inline-flex items-center px-1.5 py-0.5 text-[10px] font-mono font-bold uppercase border ${style}`}>
+      {value ? value.replaceAll("_", " ") : "UNKNOWN"}
+    </span>
   );
 }
 
@@ -57,59 +60,58 @@ export const OrdersTable = React.memo(function OrdersTable({
   onViewDetail,
 }: OrdersTableProps) {
   return (
-    <div className="overflow-x-auto bg-white">
+    <div className="overflow-x-auto font-mono select-none">
       <Table>
-        <TableHeader className="bg-slate-50/70">
-          <TableRow>
-            <TableHead>Order</TableHead>
-            <TableHead>Customer</TableHead>
-            <TableHead>Items</TableHead>
-            <TableHead>Payment</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead className="text-right">Total</TableHead>
-            <TableHead className="text-right w-12" />
+        <TableHeader className="bg-muted/40 border-b border-border text-[11px] font-bold uppercase tracking-wider">
+          <TableRow className="border-border hover:bg-transparent">
+            <TableHead className="w-[120px] text-foreground font-bold">ORDER ID</TableHead>
+            <TableHead className="text-foreground font-bold">CUSTOMER</TableHead>
+            <TableHead className="w-[100px] text-foreground font-bold">ITEMS</TableHead>
+            <TableHead className="w-[140px] text-foreground font-bold">PAYMENT</TableHead>
+            <TableHead className="w-[140px] text-foreground font-bold">STATUS</TableHead>
+            <TableHead className="text-right text-foreground font-bold">TOTAL</TableHead>
+            <TableHead className="w-[60px] text-right text-foreground font-bold">VIEW</TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody>
-          {isPending && <TableMessage>Loading orders...</TableMessage>}
+        <TableBody className="text-xs">
+          {isPending && <TableMessage>Loading order records...</TableMessage>}
           {isError && (
             <TableMessage>
-              <span>
-                Could not load orders:{" "}
+              <span className="text-rose-500">
+                Order fetch error:{" "}
                 {error instanceof Error
                   ? error.message
-                  : "Please check that the API is running."}
+                  : "Please verify the Order API service."}
               </span>
               <button
                 type="button"
                 onClick={onRefetch}
-                className="ml-2 underline underline-offset-2"
+                className="ml-2 underline underline-offset-2 text-foreground font-bold cursor-pointer"
               >
-                Try again
+                Retry
               </button>
             </TableMessage>
           )}
           {!isPending && !isError && orders.length === 0 && (
-            <TableMessage>No orders match the current filters.</TableMessage>
+            <TableMessage>No orders match the selected criteria.</TableMessage>
           )}
           {!isPending &&
             !isError &&
             orders.map((order) => (
-              <TableRow key={order.id} className="hover:bg-slate-50">
-                <TableCell className="font-mono text-xs font-medium text-slate-700">
-                  #{order.id}
+              <TableRow key={order.id} className="border-b border-border/70 hover:bg-muted/30 transition-colors">
+                <TableCell className="font-bold text-foreground select-all">
+                  #{order.id.slice(0, 8)}
                 </TableCell>
                 <TableCell>
-                  <p className="text-sm font-medium text-slate-800">
-                    {order.customerName}
+                  <p className="font-bold text-foreground">
+                    {order.customerName || "Guest"}
                   </p>
-                  <p className="text-xs text-slate-400">
+                  <p className="text-[10px] text-muted-foreground">
                     {order.customerEmail}
                   </p>
                 </TableCell>
-                <TableCell className="text-sm text-slate-600">
-                  {order.items.reduce((sum, item) => sum + item.quantity, 0)}{" "}
-                  items
+                <TableCell className="text-foreground font-bold">
+                  {order.items.reduce((sum, item) => sum + item.quantity, 0)} items
                 </TableCell>
                 <TableCell>
                   <OrderStatusBadge value={order.paymentStatus} />
@@ -117,17 +119,18 @@ export const OrdersTable = React.memo(function OrdersTable({
                 <TableCell>
                   <OrderStatusBadge value={order.status} />
                 </TableCell>
-                <TableCell className="text-right font-medium text-slate-800">
+                <TableCell className="text-right font-bold text-foreground select-all">
                   {formatVnd(order.total)}
                 </TableCell>
                 <TableCell className="text-right">
                   <button
                     type="button"
-                    aria-label={`View order ${order.id}`}
+                    aria-label={`View order details for ${order.id}`}
                     onClick={() => onViewDetail(order)}
-                    className="rounded-lg p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-800 transition"
+                    className="border border-border p-1.5 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors cursor-pointer"
+                    title="View order details"
                   >
-                    <Eye className="h-4 w-4" />
+                    <Eye className="h-3.5 w-3.5" />
                   </button>
                 </TableCell>
               </TableRow>
@@ -137,3 +140,5 @@ export const OrdersTable = React.memo(function OrdersTable({
     </div>
   );
 });
+
+OrdersTable.displayName = "OrdersTable";

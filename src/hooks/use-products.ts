@@ -206,6 +206,51 @@ export function useUpdateProduct() {
   });
 }
 
+export interface UploadUrlResponse {
+  uploadUrl: string;
+  fileKey: string;
+  publicUrl: string;
+}
+
+export function useUploadProductImage() {
+  const api = useApi();
+
+  return useMutation({
+    mutationFn: async ({
+      file,
+      folder = "products",
+    }: {
+      file: File;
+      folder?: string;
+    }): Promise<{ publicUrl: string; fileKey: string }> => {
+      // 1. Request presigned URL from API Gateway
+      const res = await api.post<UploadUrlResponse>("/products/upload-url", {
+        fileName: file.name,
+        contentType: file.type || "application/octet-stream",
+        folder,
+      });
+
+      const { uploadUrl, fileKey, publicUrl } = res.data;
+
+      // 2. Direct PUT binary payload to S3 / MinIO
+      // Note: We use standard fetch or unintercepted axios so Clerk Auth header is NOT sent to S3 presigned URL
+      const uploadRes = await fetch(uploadUrl, {
+        method: "PUT",
+        headers: {
+          "Content-Type": file.type || "application/octet-stream",
+        },
+        body: file,
+      });
+
+      if (!uploadRes.ok) {
+        throw new Error(`Failed to upload file to S3 storage: ${uploadRes.statusText}`);
+      }
+
+      return { publicUrl, fileKey };
+    },
+  });
+}
+
 export function useDeleteProduct() {
   const api = useApi();
   const queryClient = useQueryClient();

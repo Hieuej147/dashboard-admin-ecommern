@@ -68,9 +68,33 @@ export default function ProductsPage() {
     void refetch();
   }, [refetch]);
 
+  // Compute KPI statistics
+  const stats = useMemo(() => {
+    let active = 0;
+    let lowStock = 0;
+    let outOfStock = 0;
+
+    products.forEach((p) => {
+      if (p.stockQuantity === 0) {
+        outOfStock++;
+      } else if (p.stockQuantity <= 10) {
+        lowStock++;
+      } else {
+        active++;
+      }
+    });
+
+    return {
+      total: products.length,
+      active,
+      lowStock,
+      outOfStock,
+    };
+  }, [products]);
+
   return (
-    <div className="flex flex-col gap-6">
-      <ProductsHeader onOpenCreate={handleOpenCreate} />
+    <div className="flex flex-col gap-4 font-mono select-none">
+      <ProductsHeader onOpenCreate={handleOpenCreate} stats={stats} />
 
       <ProductsFilterBar
         search={search}
@@ -79,7 +103,7 @@ export default function ProductsPage() {
         onStatusChange={setStatus}
       />
 
-      <div className="flex flex-col rounded-xl border border-slate-200 bg-white overflow-hidden">
+      <div className="flex flex-col border border-border bg-card shadow-hard-md overflow-hidden">
         <ProductsTable
           products={filteredProducts}
           isPending={isPending}

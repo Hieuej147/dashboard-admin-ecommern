@@ -1,13 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { CheckCircle2, Eye } from "lucide-react";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-} from "@/components/ui/card";
+import { CheckCircle2, Eye, ArrowUpRight } from "lucide-react";
 import {
   Table,
   TableHeader,
@@ -16,7 +9,6 @@ import {
   TableBody,
   TableCell,
 } from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
 import { formatVnd } from "@/lib/utils";
 import type { AttentionOrdersCardProps } from "../types/overview.types";
 
@@ -25,87 +17,88 @@ export const AttentionOrdersCard = React.memo(function AttentionOrdersCard({
   onOpenDetail,
 }: AttentionOrdersCardProps) {
   return (
-    <Card>
-      <CardHeader className="border-b border-slate-100 pb-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <CardTitle className="text-base">
-              Orders Requiring Attention
-            </CardTitle>
-            {exceptions.length > 0 && (
-              <Badge
-                variant="outline"
-                className="border-rose-200 bg-rose-50 text-rose-700 text-xs"
-              >
-                {exceptions.length} action needed
-              </Badge>
-            )}
+    <div className="border border-border bg-card shadow-hard-md overflow-hidden font-mono select-none flex flex-col justify-between">
+      <div className="flex items-center justify-between border-b border-border bg-muted/20 px-4 py-3">
+        <div className="flex items-center gap-2">
+          <span className="h-2 w-2 bg-[#ece945]" />
+          <div>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-foreground">
+              ATTENTION REQUIRED ORDERS
+            </h3>
+            <p className="text-[11px] text-muted-foreground">
+              Pending payment, processing exceptions, or refunds
+            </p>
           </div>
-          <Link
-            to="/orders"
-            className="text-xs font-medium text-indigo-600 hover:text-indigo-800 transition"
-          >
-            View all orders
-          </Link>
+          {exceptions.length > 0 && (
+            <span className="ml-2 bg-rose-500 text-white text-[10px] font-bold px-1.5 py-0.5 border border-black/20">
+              {exceptions.length} ALERTS
+            </span>
+          )}
         </div>
-        <CardDescription className="mt-1">
-          Orders that are pending payment, failed, or cancelled.
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="p-0">
+
+        <Link
+          to="/orders"
+          className="inline-flex items-center gap-1 border border-border bg-muted/40 hover:bg-muted px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-foreground transition-colors"
+        >
+          <span>ALL ORDERS</span>
+          <ArrowUpRight className="h-3 w-3" />
+        </Link>
+      </div>
+
+      <div className="p-0 overflow-x-auto">
         {exceptions.length === 0 ? (
-          <div className="py-10 text-center text-sm text-slate-500 flex flex-col items-center gap-2">
-            <CheckCircle2 className="h-6 w-6 text-emerald-500" />
-            <span>No orders pending or failed. Great job!</span>
+          <div className="py-12 text-center text-xs text-muted-foreground flex flex-col items-center gap-2">
+            <CheckCircle2 className="h-5 w-5 text-emerald-500" />
+            <span>No pending order exceptions or fulfillment bottlenecks.</span>
           </div>
         ) : (
           <Table>
-            <TableHeader className="bg-slate-50/60 text-xs">
-              <TableRow>
-                <TableHead>Order ID</TableHead>
-                <TableHead>Customer</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead className="text-right">Total</TableHead>
-                <TableHead className="text-right w-12" />
+            <TableHeader className="bg-muted/40 border-b border-border text-[11px] font-bold uppercase tracking-wider">
+              <TableRow className="border-border hover:bg-transparent">
+                <TableHead className="w-[120px] text-foreground font-bold">ORDER ID</TableHead>
+                <TableHead className="text-foreground font-bold">CUSTOMER</TableHead>
+                <TableHead className="w-[150px] text-foreground font-bold">STATUS</TableHead>
+                <TableHead className="text-right text-foreground font-bold">TOTAL</TableHead>
+                <TableHead className="w-[60px] text-right text-foreground font-bold">VIEW</TableHead>
               </TableRow>
             </TableHeader>
-            <TableBody>
+            <TableBody className="text-xs">
               {exceptions.slice(0, 6).map((order) => (
-                <TableRow key={order.id} className="hover:bg-slate-50">
-                  <TableCell className="font-mono text-xs font-medium text-slate-700">
-                    #{order.id}
+                <TableRow key={order.id} className="border-b border-border/70 hover:bg-muted/30 transition-colors">
+                  <TableCell className="font-bold text-foreground select-all">
+                    #{order.id.slice(0, 8)}
                   </TableCell>
                   <TableCell>
-                    <p className="text-sm font-medium text-slate-800 truncate max-w-[150px]">
-                      {order.customerName || "Anonymous"}
+                    <p className="font-bold text-foreground truncate max-w-[160px]">
+                      {order.customerName || "Guest"}
                     </p>
-                    <p className="text-[11px] text-slate-400 truncate max-w-[150px]">
+                    <p className="text-[10px] text-muted-foreground truncate max-w-[160px]">
                       {order.customerEmail}
                     </p>
                   </TableCell>
                   <TableCell>
-                    <Badge
-                      variant="outline"
-                      className={
+                    <span
+                      className={`inline-flex items-center px-1.5 py-0.5 text-[10px] font-bold uppercase border ${
                         order.status === "PENDING_PAYMENT"
-                          ? "border-amber-200 bg-amber-50 text-amber-700 text-[11px]"
-                          : "border-rose-200 bg-rose-50 text-rose-700 text-[11px]"
-                      }
+                          ? "border-amber-500/40 bg-amber-500/10 text-amber-600 dark:text-amber-400"
+                          : "border-rose-500/40 bg-rose-500/10 text-rose-600 dark:text-rose-400"
+                      }`}
                     >
-                      {order.status.replaceAll("_", " ")}
-                    </Badge>
+                      {order.status === "PENDING_PAYMENT" ? "PENDING PAYMENT" : order.status}
+                    </span>
                   </TableCell>
-                  <TableCell className="text-right font-medium text-slate-800 text-xs">
+                  <TableCell className="text-right font-bold text-foreground select-all">
                     {formatVnd(order.total)}
                   </TableCell>
                   <TableCell className="text-right">
                     <button
                       type="button"
-                      aria-label={`View order ${order.id}`}
+                      aria-label={`View details for order ${order.id}`}
                       onClick={() => onOpenDetail(order)}
-                      className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-800 transition"
+                      className="border border-border p-1.5 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors cursor-pointer"
+                      title="View order details"
                     >
-                      <Eye className="h-4 w-4" />
+                      <Eye className="h-3.5 w-3.5" />
                     </button>
                   </TableCell>
                 </TableRow>
@@ -113,7 +106,9 @@ export const AttentionOrdersCard = React.memo(function AttentionOrdersCard({
             </TableBody>
           </Table>
         )}
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 });
+
+AttentionOrdersCard.displayName = "AttentionOrdersCard";

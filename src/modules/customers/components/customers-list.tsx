@@ -20,34 +20,34 @@ export const CustomersList = React.memo(function CustomersList({
   onOpenDetail,
 }: CustomersListProps) {
   return (
-    <div className="divide-y divide-slate-100 bg-white">
+    <div className="bg-card font-mono select-none">
       {isPending && (
-        <div className="py-12 text-center text-sm text-slate-500">
-          Loading customers...
+        <div className="py-12 text-center text-xs text-muted-foreground">
+          Loading customer accounts registry...
         </div>
       )}
 
       {isError && (
-        <div className="py-12 text-center text-sm text-slate-500">
+        <div className="py-12 text-center text-xs text-rose-500">
           <span>
-            Could not load customers:{" "}
+            Error loading customer data:{" "}
             {error instanceof Error
               ? error.message
-              : "Please check that the API is running."}
+              : "Please verify Auth / Users API service status."}
           </span>
           <button
             type="button"
             onClick={onRefetch}
-            className="ml-2 underline underline-offset-2"
+            className="ml-2 underline underline-offset-2 text-foreground font-bold cursor-pointer"
           >
-            Try again
+            Retry
           </button>
         </div>
       )}
 
       {!isPending && !isError && users.length === 0 && (
-        <div className="py-12 text-center text-sm text-slate-500">
-          No customers found.
+        <div className="py-12 text-center text-xs text-muted-foreground">
+          No customer accounts found matching active filters.
         </div>
       )}
 

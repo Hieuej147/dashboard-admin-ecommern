@@ -11,7 +11,8 @@ export const CustomTextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
       <textarea
         ref={ref}
         {...props}
-        className="w-full resize-none bg-transparent outline-none text-sm px-3 py-2 placeholder:text-slate-400"
+        rows={1}
+        className="w-full resize-none bg-transparent outline-none text-xs font-mono px-3 py-2 text-foreground dark:text-zinc-100 placeholder:text-muted-foreground/70 dark:placeholder:text-zinc-500"
       />
     );
   },
@@ -23,9 +24,10 @@ export const CustomSendButton = forwardRef<HTMLButtonElement, SendButtonProps>(
       <button
         ref={ref}
         {...props}
-        className="rounded-full bg-indigo-600 text-white p-2 disabled:opacity-40 hover:bg-indigo-700 transition-colors"
+        aria-label="Send directive to Copilot"
+        className="rounded-none border border-border bg-[#111315] text-[#ece945] dark:bg-[#ece945] dark:text-[#111315] dark:border-[#ece945] p-2 disabled:opacity-30 hover:opacity-90 transition-all cursor-pointer shadow-hard-sm shrink-0 flex items-center justify-center font-bold"
       >
-        <SendHorizontal className="w-4 h-4" />
+        <SendHorizontal className="w-3.5 h-3.5 text-current" />
       </button>
     );
   },

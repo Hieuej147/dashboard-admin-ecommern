@@ -1,6 +1,5 @@
 import React from "react";
 import { Eye, Mail, Shield, UserCheck } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import type { UserDto } from "@/hooks/query-key/query-key";
 
 interface CustomerRowProps {
@@ -27,7 +26,7 @@ export const CustomerRow = React.memo(function CustomerRow({
 
   return (
     <div
-      className="flex flex-col gap-4 px-5 py-4 transition hover:bg-slate-50 sm:flex-row sm:items-center cursor-pointer"
+      className="flex flex-col gap-3 px-4 py-3.5 transition-colors hover:bg-muted/30 sm:flex-row sm:items-center cursor-pointer border-b border-border/70 font-mono select-none"
       onClick={() => onOpenDetail(user)}
     >
       <div className="flex min-w-0 flex-1 items-center gap-3">
@@ -35,57 +34,49 @@ export const CustomerRow = React.memo(function CustomerRow({
           <img
             src={user.imageUrl}
             alt={displayName}
-            className="h-10 w-10 shrink-0 rounded-full border border-slate-200 object-cover"
+            className="h-9 w-9 shrink-0 border border-border object-cover"
           />
         ) : (
-          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-indigo-50 text-xs font-semibold text-indigo-700">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center border border-border bg-muted/40 text-xs font-bold text-foreground">
             {initials}
           </span>
         )}
         <div className="min-w-0">
-          <p className="truncate text-sm font-medium text-slate-800">
+          <p className="truncate text-xs font-bold text-foreground">
             {displayName}
           </p>
-          <p className="flex items-center gap-1 truncate text-xs text-slate-400">
-            <Mail className="h-3 w-3" />
-            {user.email || "No email"}
+          <p className="flex items-center gap-1.5 truncate text-[11px] text-muted-foreground select-all">
+            <Mail className="h-3 w-3 shrink-0" />
+            {user.email || "No email available"}
           </p>
         </div>
       </div>
 
-      <div className="grid grid-cols-3 items-center gap-6 text-sm sm:w-[360px]">
+      <div className="grid grid-cols-3 items-center gap-4 text-xs sm:w-[360px]">
         <div>
-          <p className="text-[10px] uppercase tracking-wider text-slate-400">
-            Role
-          </p>
-          <Badge
-            variant="outline"
-            className={
+          <span
+            className={`inline-flex items-center px-1.5 py-0.5 text-[10px] font-bold uppercase border ${
               user.role === "admin"
-                ? "mt-1 border-purple-200 bg-purple-50 text-purple-700"
-                : "mt-1 border-blue-200 bg-blue-50 text-blue-700"
-            }
+                ? "border-purple-500/40 bg-purple-50/10 text-purple-600 dark:text-purple-400"
+                : "border-border bg-muted/30 text-muted-foreground"
+            }`}
           >
             <Shield className="mr-1 h-3 w-3" />
-            {user.role}
-          </Badge>
+            {user.role === "admin" ? "ADMIN" : "CUSTOMER"}
+          </span>
         </div>
 
         <div>
-          <p className="text-[10px] uppercase tracking-wider text-slate-400">
-            Status
-          </p>
-          <Badge
-            variant="outline"
-            className={
+          <span
+            className={`inline-flex items-center px-1.5 py-0.5 text-[10px] font-bold uppercase border ${
               user.status === "active"
-                ? "mt-1 border-emerald-200 bg-emerald-50 text-emerald-700"
-                : "mt-1 border-rose-200 bg-rose-50 text-rose-700"
-            }
+                ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                : "border-rose-500/40 bg-rose-500/10 text-rose-600 dark:text-rose-400"
+            }`}
           >
             <UserCheck className="mr-1 h-3 w-3" />
-            {user.status}
-          </Badge>
+            {user.status === "active" ? "ACTIVE" : "LOCKED"}
+          </span>
         </div>
 
         <div className="flex justify-end">
@@ -96,9 +87,10 @@ export const CustomerRow = React.memo(function CustomerRow({
               e.stopPropagation();
               onOpenDetail(user);
             }}
-            className="rounded-lg p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-800 transition"
+            className="border border-border p-1.5 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors cursor-pointer"
+            title="View customer details"
           >
-            <Eye className="h-4 w-4" />
+            <Eye className="h-3.5 w-3.5" />
           </button>
         </div>
       </div>

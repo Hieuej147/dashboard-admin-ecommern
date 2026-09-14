@@ -8,21 +8,21 @@ interface TemplateLibraryProps {
 
 export function TemplateLibrary({ onUseTemplate, isRunning }: TemplateLibraryProps) {
   return (
-    <div className="flex flex-col gap-6 animate-in fade-in duration-300">
-      <div>
-        <h2 className="text-sm font-semibold text-slate-800">
-          E-Commerce Workflow Template Library
+    <div className="flex flex-col gap-6 font-mono animate-in fade-in duration-300">
+      <div className="border-b border-border pb-3">
+        <h2 className="text-sm font-bold uppercase tracking-wider text-foreground">
+          COMMERCE COMMAND TEMPLATES
         </h2>
-        <p className="text-xs text-slate-500 mt-0.5">
-          Curated prompts empowering administrators to execute common workflows instantly without drafting from scratch.
+        <p className="text-xs text-muted-foreground mt-0.5">
+          Curated prompt templates for executing operational and analytic workflows.
         </p>
       </div>
 
       <div className="flex flex-col gap-5">
         {TEMPLATE_CATEGORIES.map((cat, idx) => (
           <div key={idx} className="flex flex-col gap-2.5">
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400">
-              {cat.category}
+            <h3 className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+              [ {cat.category} ]
             </h3>
             <div className="grid gap-2.5">
               {cat.items.map((item, itemIdx) => (

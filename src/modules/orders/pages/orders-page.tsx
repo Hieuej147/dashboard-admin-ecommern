@@ -42,12 +42,12 @@ export default function OrdersPage() {
   }, [refetch]);
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-4 font-mono select-none">
       <OrdersHeader />
 
       <OrdersMetricsCards />
 
-      <div className="overflow-hidden rounded-xl border border-slate-200 bg-white">
+      <div className="border border-border bg-card shadow-hard-md overflow-hidden">
         <OrdersFilterBar
           search={search}
           onSearchChange={setSearch}

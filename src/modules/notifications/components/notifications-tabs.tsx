@@ -18,7 +18,7 @@ export const NotificationsTabs = React.memo(function NotificationsTabs({
   totalCount,
 }: NotificationsTabsProps) {
   return (
-    <div className="flex flex-wrap gap-1 border-b border-slate-200 pb-2">
+    <div className="flex flex-wrap items-center gap-1.5 border-b border-border pb-3 font-mono">
       {NOTIFICATION_TABS.map((tab) => {
         const isActive = activeTab === tab.id;
         const count =
@@ -33,22 +33,22 @@ export const NotificationsTabs = React.memo(function NotificationsTabs({
             key={tab.id}
             type="button"
             onClick={() => onTabChange(tab.id)}
-            className={`inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition ${
+            className={`inline-flex items-center gap-1.5 border border-border px-3 py-1.5 text-xs uppercase tracking-wider font-bold transition-colors cursor-pointer ${
               isActive
-                ? "bg-slate-900 text-white shadow-sm"
-                : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+                ? "bg-primary text-primary-foreground shadow-hard-sm"
+                : "bg-card text-muted-foreground hover:bg-muted hover:text-foreground"
             }`}
           >
-            {tab.label}
+            <span>{tab.label}</span>
             {count !== undefined && count > 0 && (
               <span
-                className={`rounded-full px-1.5 py-0.2 text-[10px] ${
+                className={`text-[10px] font-bold ${
                   isActive
-                    ? "bg-slate-700 text-white"
-                    : "bg-slate-200 text-slate-700"
+                    ? "text-[#ece945]"
+                    : "text-muted-foreground"
                 }`}
               >
-                {count}
+                [{count}]
               </span>
             )}
           </button>

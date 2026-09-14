@@ -101,7 +101,7 @@ export default function Homepage() {
 
       {/* 2. Overview Dashboard */}
       {!activeDashboardId && (
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-4 font-mono select-none">
           {/* Header */}
           <OverviewHeader
             todayStr={todayStr}
@@ -112,15 +112,15 @@ export default function Homepage() {
 
           {/* Error State */}
           {isError && (
-            <div className="rounded-xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-700">
-              Failed to load store overview:{" "}
+            <div className="border border-rose-300 dark:border-rose-900/50 bg-rose-500/10 p-4 text-xs text-rose-600 dark:text-rose-400">
+              Error loading system overview metrics:{" "}
               {error instanceof Error ? error.message : "Unknown error"}
               <button
                 type="button"
                 onClick={handleRefetch}
-                className="ml-2 font-medium underline hover:text-rose-900"
+                className="ml-2 font-bold underline hover:text-foreground cursor-pointer"
               >
-                Try again
+                Retry
               </button>
             </div>
           )}
@@ -135,7 +135,7 @@ export default function Homepage() {
           />
 
           {/* Revenue Chart & Inventory Pulse */}
-          <div className="grid grid-cols-1 gap-6 xl:grid-cols-[1.45fr_0.55fr]">
+          <div className="grid grid-cols-1 gap-4 xl:grid-cols-[1.45fr_0.55fr]">
             <RevenueChartCard chartData={chartData} />
             <InventoryPulseCard
               lowStockCount={lowStockCount}
@@ -147,7 +147,7 @@ export default function Homepage() {
           </div>
 
           {/* Bottom Grid: Exceptions & Low Stock Products */}
-          <div className="grid grid-cols-1 gap-6 xl:grid-cols-[1.2fr_0.8fr]">
+          <div className="grid grid-cols-1 gap-4 xl:grid-cols-[1.2fr_0.8fr]">
             <AttentionOrdersCard
               exceptions={exceptions}
               onOpenDetail={handleOpenDetail}

@@ -53,11 +53,11 @@ export function QuickPromptChips({
   };
 
   return (
-    <div className="flex items-center gap-1.5 border-b border-slate-100 bg-white/70 px-2.5 py-1.5 shrink-0">
+    <div className="flex items-center gap-1.5 border-b border-border dark:border-white/10 bg-card dark:bg-[#121418] px-3 py-1.5 shrink-0 font-mono transition-colors">
       {/* Label */}
-      <span className="text-[10px] uppercase font-semibold text-slate-400 shrink-0 flex items-center gap-1 pl-0.5">
-        <Sparkles className="w-3 h-3 text-amber-500" />
-        Suggestions:
+      <span className="text-[10px] uppercase font-bold text-muted-foreground dark:text-zinc-400 shrink-0 flex items-center gap-1 pl-0.5">
+        <Sparkles className="w-3 h-3 text-[#ece945]" />
+        PROMPTS:
       </span>
 
       {/* Optional Left Scroll Arrow */}
@@ -65,7 +65,7 @@ export function QuickPromptChips({
         <button
           type="button"
           onClick={() => scrollBy(-140)}
-          className="h-5 w-5 rounded-full bg-white shadow-xs border border-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-800 shrink-0 transition"
+          className="h-5 w-5 rounded-none bg-card dark:bg-[#181b20] shadow-hard-sm border border-border dark:border-white/10 flex items-center justify-center text-foreground hover:bg-muted shrink-0 transition cursor-pointer"
           aria-label="Scroll left"
         >
           <ChevronLeft className="h-3 w-3" />
@@ -76,7 +76,7 @@ export function QuickPromptChips({
       <div
         ref={scrollRef}
         onWheel={handleWheel}
-        className="flex-1 flex items-center gap-1.5 overflow-x-auto py-1 scroll-smooth min-w-0 [scrollbar-width:thin] [scrollbar-color:rgba(148,163,184,0.45)_transparent]"
+        className="flex-1 flex items-center gap-1.5 overflow-x-auto py-1 scroll-smooth min-w-0 [scrollbar-width:thin]"
       >
         {/* Dynamic Suggestions from CopilotKit v2 hook */}
         {suggestions && suggestions.length > 0
@@ -87,7 +87,7 @@ export function QuickPromptChips({
                 disabled={disabled}
                 onClick={() => onSelectPrompt(s.message)}
                 title={s.message}
-                className="inline-flex items-center gap-1 rounded-full border border-blue-200 bg-blue-50/70 px-2.5 py-1 text-[11px] font-medium text-blue-700 hover:border-blue-400 hover:bg-blue-100 transition shrink-0 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
+                className="inline-flex items-center gap-1 rounded-none border border-border dark:border-white/10 bg-muted/40 dark:bg-[#181b20] px-2.5 py-1 text-[11px] font-bold text-foreground dark:text-zinc-200 hover:bg-muted hover:border-[#ece945] dark:hover:border-[#ece945] dark:hover:text-[#ece945] transition-colors shrink-0 whitespace-nowrap shadow-hard-sm disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
               >
                 <span>{s.title}</span>
               </button>
@@ -100,9 +100,9 @@ export function QuickPromptChips({
                   type="button"
                   disabled={disabled}
                   onClick={() => onSelectPrompt(chip.prompt)}
-                  className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-[11px] font-medium text-slate-600 hover:border-blue-300 hover:bg-blue-50/70 hover:text-blue-700 transition shrink-0 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="inline-flex items-center gap-1 rounded-none border border-border dark:border-white/10 bg-muted/40 dark:bg-[#181b20] px-2.5 py-1 text-[11px] font-bold text-foreground dark:text-zinc-200 hover:bg-muted hover:border-[#ece945] dark:hover:border-[#ece945] dark:hover:text-[#ece945] transition-colors shrink-0 whitespace-nowrap shadow-hard-sm disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                 >
-                  <Icon className="h-3 w-3 text-slate-400" />
+                  <Icon className="h-3 w-3 text-[#ece945]" />
                   {chip.label}
                 </button>
               );
@@ -114,7 +114,7 @@ export function QuickPromptChips({
         <button
           type="button"
           onClick={() => scrollBy(140)}
-          className="h-5 w-5 rounded-full bg-white shadow-xs border border-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-800 shrink-0 transition"
+          className="h-5 w-5 rounded-none bg-card dark:bg-[#181b20] shadow-hard-sm border border-border dark:border-white/10 flex items-center justify-center text-foreground hover:bg-muted shrink-0 transition cursor-pointer"
           aria-label="Scroll right"
         >
           <ChevronRight className="h-3 w-3" />
@@ -130,11 +130,11 @@ export function QuickPromptChips({
             reloadSuggestions();
           }
         }}
-        title="Refresh suggestions"
-        className="rounded-md p-1 text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition shrink-0 disabled:opacity-40"
+        title="Reload prompt suggestions"
+        className="rounded-none border border-border dark:border-white/10 bg-card dark:bg-[#181b20] p-1 text-foreground hover:bg-muted transition shrink-0 disabled:opacity-40 cursor-pointer shadow-hard-sm"
       >
         <RefreshCw
-          className={`w-3.5 h-3.5 ${isLoading ? "animate-spin text-blue-600" : ""}`}
+          className={`w-3.5 h-3.5 ${isLoading ? "animate-spin text-[#ece945]" : ""}`}
         />
       </button>
     </div>

@@ -15,25 +15,28 @@ export const CustomersFilterBar = React.memo(function CustomersFilterBar({
   onRoleChange,
 }: CustomersFilterBarProps) {
   return (
-    <div className="flex flex-col gap-3 border-b border-slate-100 p-3 sm:flex-row bg-white rounded-t-xl">
-      <label className="flex flex-1 items-center gap-2 rounded-lg bg-slate-50 px-3 text-slate-400">
-        <Search className="h-4 w-4" />
+    <div className="flex flex-col gap-2.5 border-b border-border bg-card p-3 sm:flex-row font-mono select-none">
+      <div className="flex flex-1 items-center gap-2 border border-border bg-muted/30 px-3 text-muted-foreground focus-within:border-foreground">
+        <Search className="h-4 w-4 shrink-0 text-muted-foreground" />
         <input
           value={search}
           onChange={(e) => onSearchChange(e.target.value)}
-          placeholder="Search customers by name, email, or ID..."
-          className="h-9 w-full bg-transparent text-sm outline-none placeholder:text-slate-400"
+          placeholder="Search customers by name, email, or user ID..."
+          className="h-9 w-full bg-transparent text-xs text-foreground outline-none placeholder:text-muted-foreground"
         />
-      </label>
-      <select
-        value={role}
-        onChange={(e) => onRoleChange(e.target.value)}
-        className="h-9 rounded-lg border border-slate-200 bg-white px-3 text-sm text-slate-600 outline-none"
-      >
-        <option value="">All roles</option>
-        <option value="customer">Customer</option>
-        <option value="admin">Admin</option>
-      </select>
+      </div>
+
+      <div className="flex items-center gap-2">
+        <select
+          value={role}
+          onChange={(e) => onRoleChange(e.target.value)}
+          className="h-9 border border-border bg-card px-3 text-xs font-bold uppercase tracking-wider text-foreground outline-none focus:border-foreground cursor-pointer"
+        >
+          <option value="">ALL ROLES</option>
+          <option value="customer">CUSTOMER</option>
+          <option value="admin">ADMINISTRATOR</option>
+        </select>
+      </div>
     </div>
   );
 });
