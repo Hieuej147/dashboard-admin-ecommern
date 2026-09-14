@@ -35,10 +35,12 @@ This project is part of an integrated 4-part microservices platform:
 ## 🌟 Core Features
 
 - 📊 **Executive Overview**: Real-time KPI metrics for gross revenue, completed orders, payment success rates, and newly registered users.
-- 📦 **Product Management**: View product catalog, create new products, modify prices and stock inventory, and remove discontinued items.
-- 📑 **Order Management**: Detailed order inspection, itemized receipts, customer shipping addresses, order status updates, and order cancellations with automated refunds.
+- 🖼️ **Asset Management & Direct S3 Upload**: Presigned direct-to-storage uploads (MinIO/S3/R2) with multi-angle photography and dynamic color-variant mapping.
+- 📦 **Product Management**: View product catalog, create new products with automatic SKU generation, modify prices, manage size matrices, and archive items.
+- 📑 **Order Inspection & Audit Trail**: Detailed order inspection, itemized receipts, customer shipping addresses, delivery tracking, and immutable audit logging.
 - 💳 **Transaction Tracking**: Comprehensive log of Stripe payment transactions, payment intent identifiers, and status codes.
 - 👥 **Customer Management**: User directory displaying registered customer details, creation timestamps, and assigned system roles.
+- 🎨 **Field Protocol Design System**: Industrial 0px technical brutalism aesthetic with live telemetry HUD, real-time UTC clock, and high-contrast monospace indicators.
 - ⚡ **Ultra-Fast SPA**: Instantaneous sub-second page transitions powered by Vite and React 19.
 
 ---
